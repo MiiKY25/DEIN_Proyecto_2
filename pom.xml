@@ -98,7 +98,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>org.mikel.dein_proyecto_2/org.mikel.dein_proyecto_2.HelloApplication</mainClass>
+                            <mainClass>org.mikel.dein_proyecto_2/org.mikel.dein_proyecto_2.BibliotecaApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
