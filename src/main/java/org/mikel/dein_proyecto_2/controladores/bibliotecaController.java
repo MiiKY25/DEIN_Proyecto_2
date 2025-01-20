@@ -1,16 +1,23 @@
 package org.mikel.dein_proyecto_2.controladores;
 
+import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import org.mikel.dein_proyecto_2.bbdd.ConexionBBDD;
 import org.mikel.dein_proyecto_2.modelos.Alumno;
 import org.mikel.dein_proyecto_2.modelos.Historico;
 import org.mikel.dein_proyecto_2.modelos.Libro;
 import org.mikel.dein_proyecto_2.modelos.Prestamo;
 
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class bibliotecaController {
 
@@ -135,5 +142,69 @@ public class bibliotecaController {
     void accionModificarLibro(ActionEvent event) {
 
     }
+
+    /**
+     * Muestra un mensaje de error en una ventana de alerta.
+     *
+     * @param error El mensaje de error a mostrar en el cuadro de diálogo.
+     */
+    void mostrarError(String error) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(error);
+        alert.showAndWait();
+    }
+
+    @FXML
+    void initialize() {
+        // Controlar acceso a la base de datos
+        try {
+            new ConexionBBDD();
+        } catch (SQLException e) {
+            mostrarError("Conexion Erronea a la Base de Datos");
+            Platform.exit(); // Cierra la aplicación
+            return;
+        }
+
+        // Configuración de columnas para Alumnos
+        colAlumnoDni.setCellValueFactory(new PropertyValueFactory<>("dni"));
+        colAlumnoNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colAlumnoApellido1.setCellValueFactory(new PropertyValueFactory<>("apellido1"));
+        colAlumnoApellido2.setCellValueFactory(new PropertyValueFactory<>("apellido2"));
+
+        // Configuración de columnas para Libros
+        colLibroCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+        colLibroTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
+        colLibroAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
+        colLibroEditorial.setCellValueFactory(new PropertyValueFactory<>("editorial"));
+        colLibroEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
+        colLibroBaja.setCellValueFactory(new PropertyValueFactory<>("baja"));
+        colLibroImagen.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getFoto()));
+
+        // Configuración de columnas para Historico
+        colHistoricoID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colHistoricoAlumno.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getAlumno().getNombre() + " " + cellData.getValue().getAlumno().getApellido1()));
+        colHistoricoLibro.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getLibro().getTitulo()));
+        colHistoricoFecha.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getFecha_prestamo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
+        colHistoricoDevolucion.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getFecha_devolucion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
+
+
+
+        // Configuración de columnas para Préstamos
+        colPrestamoID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colPrestamoAlumno.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getAlumno().getNombre() + " " + cellData.getValue().getAlumno().getApellido1()));
+        colPrestamoLibro.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getLibro().getTitulo()));
+        colPrestamoFecha.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getFecha_prestamo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
+    }
+
 
 }
