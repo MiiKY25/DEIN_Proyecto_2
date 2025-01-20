@@ -4,80 +4,87 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import org.mikel.dein_proyecto_2.modelos.Alumno;
+import org.mikel.dein_proyecto_2.modelos.Historico;
+import org.mikel.dein_proyecto_2.modelos.Libro;
+import org.mikel.dein_proyecto_2.modelos.Prestamo;
+
+import java.sql.Blob;
+import java.time.LocalDateTime;
 
 public class bibliotecaController {
 
     @FXML
-    private TableColumn<?, ?> colAlumnoApellido1;
+    private TableColumn<Alumno, String> colAlumnoApellido1;
 
     @FXML
-    private TableColumn<?, ?> colAlumnoApellido2;
+    private TableColumn<Alumno, String> colAlumnoApellido2;
 
     @FXML
-    private TableColumn<?, ?> colAlumnoDni;
+    private TableColumn<Alumno, Integer> colAlumnoDni;
 
     @FXML
-    private TableColumn<?, ?> colAlumnoNombre;
+    private TableColumn<Alumno, String> colAlumnoNombre;
 
     @FXML
-    private TableColumn<?, ?> colHistoricoAlumno;
+    private TableColumn<Historico, String> colHistoricoAlumno;
 
     @FXML
-    private TableColumn<?, ?> colHistoricoDevolucion;
+    private TableColumn<Historico, LocalDateTime> colHistoricoDevolucion;
 
     @FXML
-    private TableColumn<?, ?> colHistoricoFecha;
+    private TableColumn<Historico, LocalDateTime> colHistoricoFecha;
 
     @FXML
-    private TableColumn<?, ?> colHistoricoID;
+    private TableColumn<Historico, Integer> colHistoricoID;
 
     @FXML
-    private TableColumn<?, ?> colHistoricoLibro;
+    private TableColumn<Historico, Integer> colHistoricoLibro;
 
     @FXML
-    private TableColumn<?, ?> colLibroAutor;
+    private TableColumn<Libro, String> colLibroAutor;
 
     @FXML
-    private TableColumn<?, ?> colLibroBaja;
+    private TableColumn<Libro, Integer> colLibroBaja;
 
     @FXML
-    private TableColumn<?, ?> colLibroCodigo;
+    private TableColumn<Libro, Integer> colLibroCodigo;
 
     @FXML
-    private TableColumn<?, ?> colLibroEditorial;
+    private TableColumn<Libro, String> colLibroEditorial;
 
     @FXML
-    private TableColumn<?, ?> colLibroEstado;
+    private TableColumn<Libro, String> colLibroEstado;
 
     @FXML
-    private TableColumn<?, ?> colLibroImagen;
+    private TableColumn<Libro, Blob> colLibroImagen;
 
     @FXML
-    private TableColumn<?, ?> colLibroTitulo;
+    private TableColumn<Libro, String> colLibroTitulo;
 
     @FXML
-    private TableColumn<?, ?> colPrestamoAlumno;
+    private TableColumn<Prestamo, String> colPrestamoAlumno;
 
     @FXML
-    private TableColumn<?, ?> colPrestamoFecha;
+    private TableColumn<Prestamo, LocalDateTime> colPrestamoFecha;
 
     @FXML
-    private TableColumn<?, ?> colPrestamoID;
+    private TableColumn<Prestamo, Integer> colPrestamoID;
 
     @FXML
-    private TableColumn<?, ?> colPrestamoLibro;
+    private TableColumn<Prestamo, Integer> colPrestamoLibro;
 
     @FXML
-    private TableView<?> tablaAlumno;
+    private TableView<Alumno> tablaAlumno;
 
     @FXML
-    private TableView<?> tablaHistorico;
+    private TableView<Historico> tablaHistorico;
 
     @FXML
-    private TableView<?> tablaLibro;
+    private TableView<Libro> tablaLibro;
 
     @FXML
-    private TableView<?> tablaPrestamo;
+    private TableView<Prestamo> tablaPrestamo;
 
     @FXML
     void accionAcercaDe(ActionEvent event) {
