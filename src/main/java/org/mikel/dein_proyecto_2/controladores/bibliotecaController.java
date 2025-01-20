@@ -1,13 +1,17 @@
 package org.mikel.dein_proyecto_2.controladores;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import org.mikel.dein_proyecto_2.bbdd.ConexionBBDD;
 import org.mikel.dein_proyecto_2.modelos.Alumno;
 import org.mikel.dein_proyecto_2.modelos.Historico;
@@ -180,31 +184,58 @@ public class bibliotecaController {
         colLibroEditorial.setCellValueFactory(new PropertyValueFactory<>("editorial"));
         colLibroEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
         colLibroBaja.setCellValueFactory(new PropertyValueFactory<>("baja"));
-        colLibroImagen.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getFoto()));
+
+        // Configuración del cell factory para mostrar las imágenes en la columna 'colLibroImagen'
+        colLibroImagen.setCellFactory(column -> new TableCell<Libro, Blob>() {
+            private final ImageView imageView = new ImageView();
+            private final Image imagenPorDefecto = new Image(getClass().getResourceAsStream("/imagenes/iconoLibro.png.png"));
+
+            @Override
+            protected void updateItem(Blob item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setGraphic(null); // Limpia el gráfico si la celda está vacía o no tiene imagen
+                } else {
+                    try {
+                        // Convierte el Blob a un flujo binario y luego a una imagen
+                        Image image = new Image(item.getBinaryStream());
+                        imageView.setImage(image); // Establece la imagen en el ImageView
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        imageView.setImage(imagenPorDefecto); // En caso de error, muestra la imagen por defecto
+                    }
+
+                    // Configura el tamaño del ImageView y preserva las proporciones
+                    imageView.setFitWidth(50); // Ancho de la imagen
+                    imageView.setFitHeight(50); // Altura de la imagen
+                    imageView.setPreserveRatio(true); // Mantiene las proporciones de la imagen
+
+                    setGraphic(imageView); // Muestra el ImageView en la celda
+                }
+            }
+        });
 
         // Configuración de columnas para Historico
         colHistoricoID.setCellValueFactory(new PropertyValueFactory<>("id"));
         colHistoricoAlumno.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getAlumno().getNombre() + " " + cellData.getValue().getAlumno().getApellido1()));
+                new SimpleStringProperty(cellData.getValue().getAlumno().getDni()));
         colHistoricoLibro.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getLibro().getTitulo()));
+                new SimpleObjectProperty<>(cellData.getValue().getLibro().getCodigo()));
         colHistoricoFecha.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getFecha_prestamo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
+                new SimpleObjectProperty<>(cellData.getValue().getFecha_prestamo()));
         colHistoricoDevolucion.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getFecha_devolucion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
-
-
+                new SimpleObjectProperty<>(cellData.getValue().getFecha_devolucion()));
 
         // Configuración de columnas para Préstamos
         colPrestamoID.setCellValueFactory(new PropertyValueFactory<>("id"));
         colPrestamoAlumno.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getAlumno().getNombre() + " " + cellData.getValue().getAlumno().getApellido1()));
+                new SimpleStringProperty(cellData.getValue().getAlumno().getDni()));
         colPrestamoLibro.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getLibro().getTitulo()));
+                new SimpleObjectProperty<>(cellData.getValue().getLibro().getCodigo()));
         colPrestamoFecha.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getFecha_prestamo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
-    }
+                new SimpleObjectProperty<>(cellData.getValue().getFecha_prestamo()));
 
+    }
 
 }
