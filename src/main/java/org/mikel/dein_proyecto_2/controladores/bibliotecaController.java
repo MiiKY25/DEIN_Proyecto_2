@@ -3,6 +3,8 @@ package org.mikel.dein_proyecto_2.controladores;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -13,6 +15,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.mikel.dein_proyecto_2.bbdd.ConexionBBDD;
+import org.mikel.dein_proyecto_2.dao.DaoAlumno;
+import org.mikel.dein_proyecto_2.dao.DaoHistorico;
+import org.mikel.dein_proyecto_2.dao.DaoLibro;
+import org.mikel.dein_proyecto_2.dao.DaoPrestamo;
 import org.mikel.dein_proyecto_2.modelos.Alumno;
 import org.mikel.dein_proyecto_2.modelos.Historico;
 import org.mikel.dein_proyecto_2.modelos.Libro;
@@ -147,6 +153,34 @@ public class bibliotecaController {
 
     }
 
+
+    void cargarLibros() {
+        ObservableList<Libro> listaLibros = DaoLibro.todosLibros();
+        tablaLibro.setItems(listaLibros);
+    }
+
+    void cargarAlumnos() {
+        ObservableList<Alumno> listaAlumnos = DaoAlumno.todosAlumnos();
+        tablaAlumno.setItems(listaAlumnos);
+    }
+
+    void cargarPrestamos() {
+        ObservableList<Prestamo> listaPrestamos = DaoPrestamo.todosPrestamos();
+        tablaPrestamo.setItems(listaPrestamos);
+    }
+
+    void cargarHistorico() {
+        ObservableList<Historico> listaHistoricos = DaoHistorico.todosHistoricos();
+        tablaHistorico.setItems(listaHistoricos);
+    }
+
+    void cargarTodasTablas() {
+       cargarLibros();
+       cargarAlumnos();
+       cargarPrestamos();
+       cargarHistorico();
+    }
+
     /**
      * Muestra un mensaje de error en una ventana de alerta.
      *
@@ -188,30 +222,38 @@ public class bibliotecaController {
         // Configuración del cell factory para mostrar las imágenes en la columna 'colLibroImagen'
         colLibroImagen.setCellFactory(column -> new TableCell<Libro, Blob>() {
             private final ImageView imageView = new ImageView();
-            private final Image imagenPorDefecto = new Image(getClass().getResourceAsStream("/imagenes/iconoLibro.png.png"));
+            private final Image imagenPorDefecto = new Image(getClass().getResourceAsStream("/imagenes/iconoLibro.png"));
 
             @Override
             protected void updateItem(Blob item, boolean empty) {
                 super.updateItem(item, empty);
 
-                if (empty || item == null) {
-                    setGraphic(null); // Limpia el gráfico si la celda está vacía o no tiene imagen
+                // Asegúrate de limpiar el gráfico si la celda está vacía
+                if (empty) {
+                    setGraphic(null);
                 } else {
-                    try {
-                        // Convierte el Blob a un flujo binario y luego a una imagen
-                        Image image = new Image(item.getBinaryStream());
-                        imageView.setImage(image); // Establece la imagen en el ImageView
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                        imageView.setImage(imagenPorDefecto); // En caso de error, muestra la imagen por defecto
+                    if (item == null) {
+                        // No hay imagen, usar imagen por defecto
+                        imageView.setImage(imagenPorDefecto);
+                    } else {
+                        try {
+                            // Convierte el Blob a un Image
+                            Image image = new Image(item.getBinaryStream());
+                            imageView.setImage(image);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                            // En caso de error, establecer la imagen por defecto
+                            imageView.setImage(imagenPorDefecto);
+                        }
                     }
 
-                    // Configura el tamaño del ImageView y preserva las proporciones
-                    imageView.setFitWidth(50); // Ancho de la imagen
-                    imageView.setFitHeight(50); // Altura de la imagen
-                    imageView.setPreserveRatio(true); // Mantiene las proporciones de la imagen
+                    // Ajusta el tamaño de la imagen y mantiene su proporción
+                    imageView.setFitWidth(50); // Establece el ancho de la imagen
+                    imageView.setFitHeight(50); // Establece la altura de la imagen
+                    imageView.setPreserveRatio(true); // Mantiene la proporción de la imagen
 
-                    setGraphic(imageView); // Muestra el ImageView en la celda
+                    // Establecer la gráfica de la celda
+                    setGraphic(imageView); // Muestra la imagen en la celda
                 }
             }
         });
@@ -236,6 +278,8 @@ public class bibliotecaController {
         colPrestamoFecha.setCellValueFactory(cellData ->
                 new SimpleObjectProperty<>(cellData.getValue().getFecha_prestamo()));
 
+        //Cargar datos a las tablas
+        cargarTodasTablas();
     }
 
 }
