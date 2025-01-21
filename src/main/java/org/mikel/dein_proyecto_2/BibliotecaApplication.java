@@ -14,7 +14,7 @@ public class BibliotecaApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/biblioteca.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("LECTORIKA");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/imagenes/logo.svg")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/imagenes/logo.png")));
         stage.setMinWidth(800);
         stage.setMinHeight(500);
         stage.setScene(scene);
