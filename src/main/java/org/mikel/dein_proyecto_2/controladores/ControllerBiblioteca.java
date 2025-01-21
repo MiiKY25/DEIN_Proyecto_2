@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -27,9 +26,8 @@ import org.mikel.dein_proyecto_2.modelos.Prestamo;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-public class bibliotecaController {
+public class ControllerBiblioteca {
 
     @FXML
     private TableColumn<Alumno, String> colAlumnoApellido1;

@@ -7,7 +7,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
-public class libroController {
+public class ControllerLibro {
 
     @FXML
     private ComboBox<?> comboEstado;
