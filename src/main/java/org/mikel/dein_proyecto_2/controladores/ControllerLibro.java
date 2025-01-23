@@ -10,7 +10,7 @@ import javafx.scene.control.ToggleGroup;
 public class ControllerLibro {
 
     @FXML
-    private ComboBox<?> comboEstado;
+    private ComboBox<String> comboEstado;
 
     @FXML
     private ToggleGroup radioBaja;
