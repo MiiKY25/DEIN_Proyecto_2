@@ -6,6 +6,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -13,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import org.mikel.dein_proyecto_2.bbdd.ConexionBBDD;
 import org.mikel.dein_proyecto_2.dao.DaoAlumno;
 import org.mikel.dein_proyecto_2.dao.DaoHistorico;
@@ -23,9 +27,13 @@ import org.mikel.dein_proyecto_2.modelos.Historico;
 import org.mikel.dein_proyecto_2.modelos.Libro;
 import org.mikel.dein_proyecto_2.modelos.Prestamo;
 
+import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.ResourceBundle;
 
 public class ControllerBiblioteca {
 
@@ -113,7 +121,23 @@ public class ControllerBiblioteca {
 
     @FXML
     void accionAniadirLibro(ActionEvent event) {
+        try {
+            // Cargar el recurso de idioma adecuado
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Libro.fxml"));
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Añadir Libro");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
 
+            // Establecer un evento que se ejecute cuando se cierre la ventana
+            stage.setOnHidden(windowEvent -> cargarLibros());
+            stage.show();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @FXML
@@ -127,7 +151,12 @@ public class ControllerBiblioteca {
     }
 
     @FXML
-    void accionAñadirPrestamos(ActionEvent event) {
+    void accionNuevoPrestamo(ActionEvent event) {
+
+    }
+
+    @FXML
+    void accionDevolver(ActionEvent event) {
 
     }
 
