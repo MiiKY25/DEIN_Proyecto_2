@@ -32,6 +32,11 @@ public class ControllerAlumno {
         if (error.isEmpty()){
             if (alumno==null){
                 //Crear Alumno
+                if (DaoAlumno.existeDNI(txtDNI.getText())) {
+                    mostrarError("El DNI ya existe en la base de datos.");
+                    return;
+                }
+
                 Alumno a =new Alumno(txtDNI.getText(),txtNombre.getText(),txtApellido1.getText(),txtApellido2.getText());
                 if (DaoAlumno.crearAlumno(a)){
                     mostrarInfo("Alumno creado correctamente");

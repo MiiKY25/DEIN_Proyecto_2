@@ -101,5 +101,26 @@ public class DaoAlumno {
         return resul > 0;
     }
 
+    public static boolean existeDNI(String dni) {
+        ConexionBBDD connection;
+        boolean existe = false;
+        try {
+            connection = new ConexionBBDD();
+            String consulta = "SELECT COUNT(*) FROM Alumno WHERE dni = ?";
+            PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
+            pstmt.setString(1, dni);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                existe = rs.getInt(1) > 0;
+            }
+            rs.close();
+            connection.CloseConexion();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return existe;
+    }
+
+
 
 }
