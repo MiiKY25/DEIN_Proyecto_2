@@ -245,6 +245,7 @@ public class ControllerBiblioteca {
         colLibroEditorial.setCellValueFactory(new PropertyValueFactory<>("editorial"));
         colLibroEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
         colLibroBaja.setCellValueFactory(new PropertyValueFactory<>("baja"));
+        colLibroImagen.setCellValueFactory(new PropertyValueFactory<>("foto"));
 
         // Configuración del cell factory para mostrar las imágenes en la columna 'colLibroImagen'
         colLibroImagen.setCellFactory(column -> new TableCell<Libro, Blob>() {

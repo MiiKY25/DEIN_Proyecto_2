@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.mikel.dein_proyecto_2.dao.DaoLibro;
+import org.mikel.dein_proyecto_2.modelos.Libro;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,7 +44,13 @@ public class ControllerLibro {
     void accionGuardar(ActionEvent event) {
         String error=validadDatos();
         if (error.isEmpty()){
-
+            Libro l =new Libro(0,txtTitulo.getText(),txtAutor.getText(),txtEditorial.getText(),comboEstado.getValue(),1,imagen);
+            if (DaoLibro.crearLibro(l)){
+                mostrarInfo("Libro creado correctamente");
+                cerrarVentana();
+            }else {
+                mostrarInfo("Error al crear el Libro");
+            }
         }else {
             mostrarError(error);
         }
@@ -132,6 +139,19 @@ public class ControllerLibro {
         alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(error);
+        alert.showAndWait();
+    }
+
+    /**
+     * Metodo que muestra un mensaje de información en una ventana emergente.
+     *
+     * @param info El mensaje de información que se mostrará en la ventana emergente.
+     */
+    void mostrarInfo(String info) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null);
+        alert.setTitle("Info");
+        alert.setContentText(info);
         alert.showAndWait();
     }
 

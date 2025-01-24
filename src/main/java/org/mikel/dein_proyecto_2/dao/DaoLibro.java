@@ -68,6 +68,29 @@ public class DaoLibro {
         return libro;
     }
 
+    public static boolean crearLibro(Libro l) {
+        ConexionBBDD connection;
+        int resul = 0;
+        try {
+            connection = new ConexionBBDD();
+            String consulta = "INSERT INTO Libro (titulo,autor,editorial,estado,baja,imagen) VALUES (?,?,?,?,?,?) ";
+            PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
+            pstmt.setString(1, l.getTitulo());
+            pstmt.setString(2, l.getAutor());
+            pstmt.setString(3, l.getEditorial());
+            pstmt.setString(4, l.getEstado());
+            pstmt.setInt(5, l.getBaja());
+            pstmt.setBlob(6, l.getFoto());
+
+            resul = pstmt.executeUpdate();
+            pstmt.close();
+            connection.CloseConexion();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resul > 0;
+    }
+
     /**
      * Convierte un archivo en un objeto Blob que puede ser almacenado en la base de datos.
      *
