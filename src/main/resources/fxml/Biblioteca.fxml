@@ -53,8 +53,8 @@
                         <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="700.0" spacing="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
                               <Button mnemonicParsing="false" onAction="#accionAniadirLibro" text="Añadir" />
-                              <Button mnemonicParsing="false" onAction="#accionModificarLibro" text="Modificar" />
-                              <Button mnemonicParsing="false" onAction="#accionBajaLibro" text="Baja" />
+                              <Button fx:id="btnEditarLibro" mnemonicParsing="false" onAction="#accionModificarLibro" text="Modificar" />
+                              <Button fx:id="btnBajaLibro" mnemonicParsing="false" onAction="#accionBajaLibro" text="Baja" />
                            </children>
                         </HBox>
                         <TableView fx:id="tablaLibro" layoutY="46.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="243.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
@@ -82,8 +82,8 @@
                         <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="700.0" spacing="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
                               <Button mnemonicParsing="false" onAction="#accionAniadirAlumno" text="Añadir" />
-                              <Button mnemonicParsing="false" onAction="#accionModificarAlumno" text="Modificar" />
-                              <Button mnemonicParsing="false" onAction="#accionEliminarAlumno" text="Eliminar" />
+                              <Button fx:id="btnEditarAlumno" mnemonicParsing="false" onAction="#accionModificarAlumno" text="Modificar" />
+                              <Button fx:id="btnEliminarAlumno" mnemonicParsing="false" onAction="#accionEliminarAlumno" text="Eliminar" />
                            </children>
                         </HBox>
                         <TableView fx:id="tablaAlumno" layoutY="50.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="243.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">

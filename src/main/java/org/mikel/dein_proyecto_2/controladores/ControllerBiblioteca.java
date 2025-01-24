@@ -9,10 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -108,6 +105,18 @@ public class ControllerBiblioteca {
 
     @FXML
     private TableView<Prestamo> tablaPrestamo;
+
+    @FXML
+    private Button btnBajaLibro;
+
+    @FXML
+    private Button btnEditarAlumno;
+
+    @FXML
+    private Button btnEditarLibro;
+
+    @FXML
+    private Button btnEliminarAlumno;
 
     @FXML
     void accionAcercaDe(ActionEvent event) {
@@ -326,6 +335,25 @@ public class ControllerBiblioteca {
 
         //Cargar datos a las tablas
         cargarTodasTablas();
+
+
+        // Deshabilitar los botones al inicio
+        btnEditarLibro.setDisable(true);
+        btnBajaLibro.setDisable(true);
+        btnEditarAlumno.setDisable(true);
+        btnEliminarAlumno.setDisable(true);
+
+        // Agregar un listener a la tabla para habilitar/deshabilitar los botones
+        tablaLibro.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            boolean itemSeleccionado = newSelection != null;
+            btnEditarLibro.setDisable(!itemSeleccionado);
+            btnBajaLibro.setDisable(!itemSeleccionado);
+        });
+        tablaAlumno.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            boolean itemSeleccionado = newSelection != null;
+            btnEditarAlumno.setDisable(!itemSeleccionado);
+            btnEliminarAlumno.setDisable(!itemSeleccionado);
+        });
     }
 
 }
