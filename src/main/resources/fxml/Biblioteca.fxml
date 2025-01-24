@@ -64,7 +64,6 @@
                               <TableColumn fx:id="colLibroAutor" prefWidth="376.0" text="AUTOR" />
                               <TableColumn fx:id="colLibroEditorial" prefWidth="376.0" text="EDITORIAL" />
                               <TableColumn fx:id="colLibroEstado" prefWidth="376.0" text="ESTADO" />
-                              <TableColumn fx:id="colLibroBaja" prefWidth="376.0" text="BAJA" />
                               <TableColumn fx:id="colLibroImagen" prefWidth="376.0" text="IMAGEN" />
                           </columns>
                            <columnResizePolicy>

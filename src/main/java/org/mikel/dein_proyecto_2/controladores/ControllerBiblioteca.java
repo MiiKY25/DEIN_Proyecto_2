@@ -65,9 +65,6 @@ public class ControllerBiblioteca {
     private TableColumn<Libro, String> colLibroAutor;
 
     @FXML
-    private TableColumn<Libro, Integer> colLibroBaja;
-
-    @FXML
     private TableColumn<Libro, Integer> colLibroCodigo;
 
     @FXML
@@ -271,7 +268,6 @@ public class ControllerBiblioteca {
         colLibroAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
         colLibroEditorial.setCellValueFactory(new PropertyValueFactory<>("editorial"));
         colLibroEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
-        colLibroBaja.setCellValueFactory(new PropertyValueFactory<>("baja"));
         colLibroImagen.setCellValueFactory(new PropertyValueFactory<>("foto"));
 
         // Configuración del cell factory para mostrar las imágenes en la columna 'colLibroImagen'
