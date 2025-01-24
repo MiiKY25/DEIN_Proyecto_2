@@ -6,10 +6,10 @@ import org.mikel.dein_proyecto_2.bbdd.ConexionBBDD;
 import org.mikel.dein_proyecto_2.modelos.Alumno;
 import org.mikel.dein_proyecto_2.modelos.Libro;
 
-import java.sql.Blob;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.*;
 
 public class DaoLibro {
 
@@ -66,5 +66,32 @@ public class DaoLibro {
             System.err.println(e.getMessage());
         }
         return libro;
+    }
+
+    /**
+     * Convierte un archivo en un objeto Blob que puede ser almacenado en la base de datos.
+     *
+     * @param file El archivo a convertir.
+     * @return Un objeto Blob con los datos del archivo.
+     * @throws SQLException Si ocurre un error al crear el Blob.
+     * @throws IOException Si ocurre un error al leer el archivo.
+     */
+    public static Blob convertirFicheroABlob(File file) throws SQLException, IOException {
+        ConexionBBDD connection = new ConexionBBDD();
+
+        try (Connection conn = connection.getConnection();
+             FileInputStream inputStream = new FileInputStream(file)) {
+            Blob blob = conn.createBlob();
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+
+            try (var outputStream = blob.setBinaryStream(1)) {
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+            }
+            return blob;
+        }
     }
 }

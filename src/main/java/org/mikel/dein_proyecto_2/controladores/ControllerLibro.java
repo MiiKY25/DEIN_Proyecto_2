@@ -3,7 +3,18 @@ package org.mikel.dein_proyecto_2.controladores;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.mikel.dein_proyecto_2.dao.DaoLibro;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
 
 public class ControllerLibro {
 
@@ -18,6 +29,15 @@ public class ControllerLibro {
 
     @FXML
     private TextField txtTitulo;
+
+    @FXML
+    private ImageView imgFoto;
+
+    @FXML
+    private Button btnBorrarFoto;
+
+    private Blob imagen;
+
 
     @FXML
     void accionGuardar(ActionEvent event) {
@@ -37,12 +57,34 @@ public class ControllerLibro {
 
     @FXML
     void accionSeleccionarImagen(ActionEvent event) {
-
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Elige la portada del libro");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imagenes", "*.png", "*.jpg", "*.jpeg"));
+        fileChooser.setInitialDirectory(new File("."));
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            try {
+                double kbs = (double) file.length() / 1024;
+                if (kbs > 64) {
+                    mostrarError("La imagen no puede pesar mas de 64kb");
+                } else {
+                    InputStream imagenInput = new FileInputStream(file);
+                    Blob imagenBlob = DaoLibro.convertirFicheroABlob(file);
+                    imagen = imagenBlob;
+                    imgFoto.setImage(new Image(imagenInput));
+                    btnBorrarFoto.setDisable(false);
+                }
+            } catch (IOException | NullPointerException | SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
     void accionBorrarImagen(ActionEvent event) {
-
+        imgFoto.setImage(new Image(getClass().getResourceAsStream("/imagenes/iconoLibro.png")));
+        btnBorrarFoto.setDisable(true);
+        imagen = null;
     }
 
     private void cerrarVentana() {
@@ -71,6 +113,12 @@ public class ControllerLibro {
         if (txtAutor.getText().isEmpty()) {
             error += "El campo 'Autor' no puede estar vacio\n";
         }
+
+        // Verificar si el ComboBox tiene un valor seleccionado
+        if (comboEstado.getValue() == null || comboEstado.getValue().isEmpty()) {
+            error += "Debe seleccionar un estado en el campo 'Estado'\n";
+        }
+
         return error;
     }
 
@@ -98,6 +146,7 @@ public class ControllerLibro {
                 "Restaurado"
         );
         comboEstado.setValue("Nuevo");
+        btnBorrarFoto.setDisable(true);
     }
 
 
