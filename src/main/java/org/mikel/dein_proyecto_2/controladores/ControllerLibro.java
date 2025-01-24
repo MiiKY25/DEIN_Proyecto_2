@@ -39,6 +39,8 @@ public class ControllerLibro {
 
     private Blob imagen;
 
+    private Libro libro;
+
 
     @FXML
     void accionGuardar(ActionEvent event) {
@@ -153,6 +155,30 @@ public class ControllerLibro {
         alert.setTitle("Info");
         alert.setContentText(info);
         alert.showAndWait();
+    }
+
+    public void setLibro(Libro l) {
+        this.libro=l;
+
+        // TextFields
+        txtTitulo.setText(libro.getTitulo());
+        txtAutor.setText(libro.getAutor());
+        txtEditorial.setText(libro.getEditorial());
+
+        //ComboBox
+        comboEstado.setValue(libro.getEstado());
+
+        // Imagen
+        if (this.libro.getFoto() != null) {
+            imagen = libro.getFoto();
+            try {
+                InputStream imagen = this.libro.getFoto().getBinaryStream();
+                imgFoto.setImage(new Image(imagen));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            btnBorrarFoto.setDisable(false);
+        }
     }
 
     @FXML

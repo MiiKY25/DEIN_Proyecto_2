@@ -122,12 +122,36 @@ public class ControllerBiblioteca {
     @FXML
     void accionAniadirLibro(ActionEvent event) {
         try {
-            // Cargar el recurso de idioma adecuado
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Libro.fxml"));
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setTitle("Añadir Libro");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+
+            // Establecer un evento que se ejecute cuando se cierre la ventana
+            stage.setOnHidden(windowEvent -> cargarLibros());
+            stage.show();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    void accionModificarLibro(ActionEvent event) {
+        Libro libro=tablaLibro.getSelectionModel().getSelectedItem();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Libro.fxml"));
+            Parent root = fxmlLoader.load();
+
+            ControllerLibro controller=fxmlLoader.getController();
+            controller.setLibro(libro);
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Editar Libro");
             stage.setScene(scene);
             stage.setResizable(false);
             stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
@@ -174,12 +198,6 @@ public class ControllerBiblioteca {
     void accionModificarAlumno(ActionEvent event) {
 
     }
-
-    @FXML
-    void accionModificarLibro(ActionEvent event) {
-
-    }
-
 
     void cargarLibros() {
         ObservableList<Libro> listaLibros = DaoLibro.todosLibros();
