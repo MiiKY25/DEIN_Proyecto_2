@@ -46,13 +46,29 @@ public class ControllerLibro {
     void accionGuardar(ActionEvent event) {
         String error=validadDatos();
         if (error.isEmpty()){
-            Libro l =new Libro(0,txtTitulo.getText(),txtAutor.getText(),txtEditorial.getText(),comboEstado.getValue(),1,imagen);
-            if (DaoLibro.crearLibro(l)){
-                mostrarInfo("Libro creado correctamente");
-                cerrarVentana();
+            if (libro==null){
+                //Crear Libro
+                Libro l =new Libro(0,txtTitulo.getText(),txtAutor.getText(),txtEditorial.getText(),comboEstado.getValue(),1,imagen);
+                if (DaoLibro.crearLibro(l)){
+                    mostrarInfo("Libro creado correctamente");
+                    cerrarVentana();
+                }else {
+                    mostrarInfo("Error al crear el Libro");
+                }
             }else {
-                mostrarInfo("Error al crear el Libro");
+                //Modificar Libro
+                Libro l=new Libro(libro.getCodigo(),txtTitulo.getText(),txtAutor.getText(),txtEditorial.getText(),comboEstado.getValue(),libro.getBaja(),imagen);
+                if (DaoLibro.editarLibro(l)){
+                    mostrarInfo("Libro editado correctamente");
+                    cerrarVentana();
+                }else {
+                    mostrarInfo("Error al crear el Libro");
+                }
+
             }
+
+
+
         }else {
             mostrarError(error);
         }
