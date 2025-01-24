@@ -62,17 +62,12 @@ public class ControllerLibro {
                     mostrarInfo("Libro editado correctamente");
                     cerrarVentana();
                 }else {
-                    mostrarInfo("Error al crear el Libro");
+                    mostrarInfo("Error al editar el Libro");
                 }
-
             }
-
-
-
         }else {
             mostrarError(error);
         }
-
     }
 
     @FXML

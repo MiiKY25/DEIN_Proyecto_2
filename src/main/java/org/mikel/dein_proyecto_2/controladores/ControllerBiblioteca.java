@@ -116,16 +116,6 @@ public class ControllerBiblioteca {
     private Button btnEliminarAlumno;
 
     @FXML
-    void accionAcercaDe(ActionEvent event) {
-
-    }
-
-    @FXML
-    void accionAniadirAlumno(ActionEvent event) {
-
-    }
-
-    @FXML
     void accionAniadirLibro(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Libro.fxml"));
@@ -171,6 +161,61 @@ public class ControllerBiblioteca {
     }
 
     @FXML
+    void accionBajaLibro(ActionEvent event) {
+
+    }
+
+    @FXML
+    void accionAniadirAlumno(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Alumno.fxml"));
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Añadir Alumno");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+
+            // Establecer un evento que se ejecute cuando se cierre la ventana
+            stage.setOnHidden(windowEvent -> cargarAlumnos());
+            stage.show();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    void accionModificarAlumno(ActionEvent event) {
+        Alumno alumno=tablaAlumno.getSelectionModel().getSelectedItem();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Alumno.fxml"));
+            Parent root = fxmlLoader.load();
+
+            ControllerAlumno controller=fxmlLoader.getController();
+            controller.setAlumno(alumno);
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Editar Alumno");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+
+            // Establecer un evento que se ejecute cuando se cierre la ventana
+            stage.setOnHidden(windowEvent -> cargarAlumnos());
+            stage.show();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    void accionEliminarAlumno(ActionEvent event) {
+
+    }
+
+    @FXML
     void accionAyuda(ActionEvent event) {
 
     }
@@ -190,18 +235,10 @@ public class ControllerBiblioteca {
 
     }
 
-    @FXML
-    void accionBajaLibro(ActionEvent event) {
 
-    }
 
     @FXML
-    void accionEliminarAlumno(ActionEvent event) {
-
-    }
-
-    @FXML
-    void accionModificarAlumno(ActionEvent event) {
+    void accionAcercaDe(ActionEvent event) {
 
     }
 

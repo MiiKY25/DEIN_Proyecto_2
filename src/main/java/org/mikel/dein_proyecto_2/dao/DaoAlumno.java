@@ -59,5 +59,47 @@ public class DaoAlumno {
         return alumno;
     }
 
+    public static boolean crearAlumno(Alumno a) {
+        ConexionBBDD connection;
+        int resul = 0;
+        try {
+            connection = new ConexionBBDD();
+            String consulta = "INSERT INTO Alumno (dni,nombre,apellido1,apellido2) VALUES (?,?,?,?) ";
+            PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
+            pstmt.setString(1, a.getDni());
+            pstmt.setString(2, a.getNombre());
+            pstmt.setString(3, a.getApellido1());
+            pstmt.setString(4, a.getApellido2());
+
+            resul = pstmt.executeUpdate();
+            pstmt.close();
+            connection.CloseConexion();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resul > 0;
+    }
+
+    public static boolean editarAlumno(Alumno a) {
+        ConexionBBDD connection;
+        int resul = 0;
+        try {
+            connection = new ConexionBBDD();
+            String consulta = "UPDATE Alumno SET nombre = ?,apellido1 = ?,apellido2 = ? WHERE dni = ?";
+            PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
+            pstmt.setString(1, a.getNombre());
+            pstmt.setString(2, a.getApellido1());
+            pstmt.setString(3, a.getApellido2());
+            pstmt.setString(4, a.getDni());
+
+            resul = pstmt.executeUpdate();
+            pstmt.close();
+            connection.CloseConexion();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resul > 0;
+    }
+
 
 }
