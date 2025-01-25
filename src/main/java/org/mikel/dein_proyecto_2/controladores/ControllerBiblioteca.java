@@ -162,7 +162,13 @@ public class ControllerBiblioteca {
 
     @FXML
     void accionBajaLibro(ActionEvent event) {
-
+        Libro libro=tablaLibro.getSelectionModel().getSelectedItem();
+        if (DaoLibro.darDeBajaLibro(libro.getCodigo())){
+            mostrarInfo("Libro dado de baja correctamente");
+            cargarLibros();
+        }else {
+            mostrarInfo("Error al dar de baja el libro");
+        }
     }
 
     @FXML
@@ -243,7 +249,7 @@ public class ControllerBiblioteca {
     }
 
     void cargarLibros() {
-        ObservableList<Libro> listaLibros = DaoLibro.todosLibros();
+        ObservableList<Libro> listaLibros = DaoLibro.todosLibrosActivos();
         tablaLibro.setItems(listaLibros);
     }
 
@@ -279,6 +285,19 @@ public class ControllerBiblioteca {
         alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(error);
+        alert.showAndWait();
+    }
+
+    /**
+     * Metodo que muestra un mensaje de información en una ventana emergente.
+     *
+     * @param info El mensaje de información que se mostrará en la ventana emergente.
+     */
+    void mostrarInfo(String info) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null);
+        alert.setTitle("Info");
+        alert.setContentText(info);
         alert.showAndWait();
     }
 

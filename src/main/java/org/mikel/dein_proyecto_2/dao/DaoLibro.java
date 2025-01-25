@@ -115,6 +115,52 @@ public class DaoLibro {
         return resul > 0;
     }
 
+    public static boolean darDeBajaLibro(int codigo) {
+        ConexionBBDD connection;
+        int resul = 0;
+        try {
+            connection = new ConexionBBDD();
+            // Consulta para actualizar el estado del libro a 'baja = 0'
+            String consulta = "UPDATE Libro SET baja = 0 WHERE codigo = ?";
+            PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
+            pstmt.setInt(1, codigo);
+
+            resul = pstmt.executeUpdate();
+            pstmt.close();
+            connection.CloseConexion();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resul > 0;
+    }
+
+    public static ObservableList<Libro> todosLibrosActivos() {
+        ConexionBBDD connection;
+        ObservableList<Libro> libros = FXCollections.observableArrayList();
+        try {
+            connection = new ConexionBBDD();
+            String consulta = "SELECT codigo,titulo,autor,editorial,estado,baja,imagen FROM Libro WHERE baja=1";
+            PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int codigo = rs.getInt(1);
+                String titulo = rs.getString(2);
+                String autor = rs.getString(3);
+                String editorial = rs.getString(4);
+                String estado = rs.getString(5);
+                int baja = rs.getInt(6);
+                Blob foto = rs.getBlob(7);
+                Libro l=new Libro(codigo,titulo,autor,editorial,estado,baja,foto);
+                libros.add(l);
+            }
+            rs.close();
+            connection.CloseConexion();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return libros;
+    }
+
     /**
      * Convierte un archivo en un objeto Blob que puede ser almacenado en la base de datos.
      *
