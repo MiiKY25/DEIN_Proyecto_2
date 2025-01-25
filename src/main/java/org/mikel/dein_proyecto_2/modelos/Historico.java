@@ -1,21 +1,21 @@
 package org.mikel.dein_proyecto_2.modelos;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Historico {
 
     private int id;
     private Alumno alumno;
     private Libro libro;
-    private LocalDateTime fecha_prestamo;
-    private LocalDateTime fecha_devolucion;
+    private LocalDate fecha_prestamo;
+    private LocalDate fecha_devolucion;
 
-    public Historico(int id, Alumno alumno, Libro libro, LocalDateTime fecha_devolucion, LocalDateTime fecha_prestamo) {
+    public Historico(int id, Alumno alumno, Libro libro,LocalDate fecha_prestamo,LocalDate fecha_devolucion) {
         this.id = id;
         this.alumno = alumno;
         this.libro = libro;
-        this.fecha_devolucion = fecha_devolucion;
         this.fecha_prestamo = fecha_prestamo;
+        this.fecha_devolucion = fecha_devolucion;
     }
 
     public Historico() {
@@ -45,19 +45,19 @@ public class Historico {
         this.libro = libro;
     }
 
-    public LocalDateTime getFecha_prestamo() {
+    public LocalDate getFecha_prestamo() {
         return fecha_prestamo;
     }
 
-    public void setFecha_prestamo(LocalDateTime fecha_prestamo) {
+    public void setFecha_prestamo(LocalDate fecha_prestamo) {
         this.fecha_prestamo = fecha_prestamo;
     }
 
-    public LocalDateTime getFecha_devolucion() {
+    public LocalDate getFecha_devolucion() {
         return fecha_devolucion;
     }
 
-    public void setFecha_devolucion(LocalDateTime fecha_devolucion) {
+    public void setFecha_devolucion(LocalDate fecha_devolucion) {
         this.fecha_devolucion = fecha_devolucion;
     }
 

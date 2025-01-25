@@ -64,4 +64,22 @@ public class DaoPrestamo {
         }
         return resul > 0;
     }
+
+    public static boolean eliminarPrestamo(Prestamo p) {
+        ConexionBBDD connection;
+        int resul = 0;
+        try {
+            connection = new ConexionBBDD();
+            String consulta = "DELETE FROM Prestamo WHERE id_prestamo = ?";
+            PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
+            pstmt.setInt(1, p.getId());
+
+            resul = pstmt.executeUpdate();
+            pstmt.close();
+            connection.CloseConexion();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return resul > 0;
+    }
 }

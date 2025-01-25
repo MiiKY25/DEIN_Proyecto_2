@@ -52,10 +52,10 @@ public class ControllerBiblioteca {
     private TableColumn<Historico, String> colHistoricoAlumno;
 
     @FXML
-    private TableColumn<Historico, LocalDateTime> colHistoricoDevolucion;
+    private TableColumn<Historico, LocalDate> colHistoricoDevolucion;
 
     @FXML
-    private TableColumn<Historico, LocalDateTime> colHistoricoFecha;
+    private TableColumn<Historico, LocalDate> colHistoricoFecha;
 
     @FXML
     private TableColumn<Historico, Integer> colHistoricoID;
@@ -240,7 +240,22 @@ public class ControllerBiblioteca {
 
     @FXML
     void accionDevolver(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Devolver.fxml"));
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Devolver Libro");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
 
+            // Establecer un evento que se ejecute cuando se cierre la ventana
+            stage.setOnHidden(windowEvent -> cargarTodasTablas());
+            stage.show();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @FXML
@@ -380,16 +395,55 @@ public class ControllerBiblioteca {
             }
         });
 
-        // Configuración de columnas para Historico
+        // Configuración de columnas para Histórico
         colHistoricoID.setCellValueFactory(new PropertyValueFactory<>("id"));
         colHistoricoAlumno.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getAlumno().getDni()));
         colHistoricoLibro.setCellValueFactory(cellData ->
                 new SimpleObjectProperty<>(cellData.getValue().getLibro().getCodigo()));
+
+        // Configurar la columna de fecha de préstamo
         colHistoricoFecha.setCellValueFactory(cellData ->
                 new SimpleObjectProperty<>(cellData.getValue().getFecha_prestamo()));
+
+        // Aplicar un formato de fecha
+        colHistoricoFecha.setCellFactory(column -> new TableCell<Historico, LocalDate>() {
+            private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            @Override
+            protected void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    // Formatear la fecha
+                    String formattedDate = item.format(formatter);
+                    setText(formattedDate);
+                }
+            }
+        });
+
+        // Configurar la columna de fecha de devolución
         colHistoricoDevolucion.setCellValueFactory(cellData ->
                 new SimpleObjectProperty<>(cellData.getValue().getFecha_devolucion()));
+
+        // Aplicar un formato de fecha
+        colHistoricoDevolucion.setCellFactory(column -> new TableCell<Historico, LocalDate>() {
+            private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            @Override
+            protected void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    // Formatear la fecha
+                    String formattedDate = item.format(formatter);
+                    setText(formattedDate);
+                }
+            }
+        });
+
 
         // Configuración de columnas para Préstamos
         colPrestamoID.setCellValueFactory(new PropertyValueFactory<>("id"));

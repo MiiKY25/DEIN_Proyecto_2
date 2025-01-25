@@ -6,10 +6,13 @@ import org.mikel.dein_proyecto_2.bbdd.ConexionBBDD;
 import org.mikel.dein_proyecto_2.modelos.Alumno;
 import org.mikel.dein_proyecto_2.modelos.Historico;
 import org.mikel.dein_proyecto_2.modelos.Libro;
+import org.mikel.dein_proyecto_2.modelos.Prestamo;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class DaoHistorico {
@@ -26,8 +29,8 @@ public class DaoHistorico {
                 int id_prestamo = rs.getInt(1);
                 String dni_alumno = rs.getString(2);
                 String codigo_libro = rs.getString(3);
-                LocalDateTime fecha_prestamo = rs.getTimestamp(4).toLocalDateTime();
-                LocalDateTime fecha_devolucion = rs.getTimestamp(5).toLocalDateTime();
+                LocalDate fecha_prestamo = rs.getDate(4).toLocalDate();
+                LocalDate fecha_devolucion = rs.getDate(5).toLocalDate();
 
                 Alumno a= DaoAlumno.AlumnoID(dni_alumno);
                 Libro l= DaoLibro.LibroID(codigo_libro);
@@ -41,5 +44,29 @@ public class DaoHistorico {
             System.err.println(e.getMessage());
         }
         return historicos;
+    }
+
+    public static boolean crearHistorico(Prestamo p) {
+        ConexionBBDD connection;
+        int resul = 0;
+        try {
+            connection = new ConexionBBDD();
+            String consulta = "INSERT INTO Historico_prestamo (dni_alumno,codigo_libro,fecha_prestamo,fecha_devolucion) VALUES (?,?,?,?) ";
+            PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
+            pstmt.setString(1, p.getAlumno().getDni());
+            pstmt.setInt(2, p.getLibro().getCodigo());
+            // Fecha LocalDate
+            pstmt.setDate(3, Date.valueOf(p.getFecha_prestamo()));
+            LocalDate fechaHoy = LocalDate.now();
+            pstmt.setDate(4, Date.valueOf(fechaHoy));
+
+            resul = pstmt.executeUpdate();
+            pstmt.close();
+            connection.CloseConexion();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        DaoPrestamo.eliminarPrestamo(p);
+        return resul > 0;
     }
 }
