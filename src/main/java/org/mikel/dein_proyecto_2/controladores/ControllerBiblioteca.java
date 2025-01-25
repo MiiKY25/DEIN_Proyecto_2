@@ -217,12 +217,32 @@ public class ControllerBiblioteca {
     }
 
     @FXML
-    void accionEliminarAlumno(ActionEvent event) {
+    void accionNuevoPrestamo(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Prestamo.fxml"));
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Crear Prestamo");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+
+            // Establecer un evento que se ejecute cuando se cierre la ventana
+            stage.setOnHidden(windowEvent -> cargarPrestamos());
+            stage.show();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    void accionDevolver(ActionEvent event) {
 
     }
 
     @FXML
-    void accionAyuda(ActionEvent event) {
+    void accionEliminarAlumno(ActionEvent event) {
 
     }
 
@@ -232,19 +252,12 @@ public class ControllerBiblioteca {
     }
 
     @FXML
-    void accionNuevoPrestamo(ActionEvent event) {
-
-    }
-
-    @FXML
-    void accionDevolver(ActionEvent event) {
-
-    }
-
-
-
-    @FXML
     void accionAcercaDe(ActionEvent event) {
+
+    }
+
+    @FXML
+    void accionAyuda(ActionEvent event) {
 
     }
 

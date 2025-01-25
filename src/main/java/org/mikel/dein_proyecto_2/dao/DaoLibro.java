@@ -161,6 +161,40 @@ public class DaoLibro {
         return libros;
     }
 
+    public static ObservableList<Libro> todosLibrosParaPrestar() {
+        ConexionBBDD connection;
+        ObservableList<Libro> libros = FXCollections.observableArrayList();
+        try {
+            connection = new ConexionBBDD();
+            String consulta = """
+            SELECT l.codigo, l.titulo, l.autor, l.editorial, l.estado, l.baja, l.imagen
+            FROM Libro l
+            LEFT JOIN Prestamo p ON l.codigo = p.codigo_libro
+            WHERE l.baja = 1 AND p.id_prestamo IS NULL
+        """;
+            PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int codigo = rs.getInt(1);
+                String titulo = rs.getString(2);
+                String autor = rs.getString(3);
+                String editorial = rs.getString(4);
+                String estado = rs.getString(5);
+                int baja = rs.getInt(6);
+                Blob foto = rs.getBlob(7);
+                Libro l = new Libro(codigo, titulo, autor, editorial, estado, baja, foto);
+                libros.add(l);
+            }
+            rs.close();
+            pstmt.close();
+            connection.CloseConexion();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return libros;
+    }
+
+
     /**
      * Convierte un archivo en un objeto Blob que puede ser almacenado en la base de datos.
      *
