@@ -27,7 +27,9 @@ import org.mikel.dein_proyecto_2.modelos.Prestamo;
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -83,7 +85,7 @@ public class ControllerBiblioteca {
     private TableColumn<Prestamo, String> colPrestamoAlumno;
 
     @FXML
-    private TableColumn<Prestamo, LocalDateTime> colPrestamoFecha;
+    private TableColumn<Prestamo, LocalDate> colPrestamoFecha;
 
     @FXML
     private TableColumn<Prestamo, Integer> colPrestamoID;
@@ -395,8 +397,26 @@ public class ControllerBiblioteca {
                 new SimpleStringProperty(cellData.getValue().getAlumno().getDni()));
         colPrestamoLibro.setCellValueFactory(cellData ->
                 new SimpleObjectProperty<>(cellData.getValue().getLibro().getCodigo()));
-        colPrestamoFecha.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getFecha_prestamo()));
+
+        // Configurar la columna de fecha de préstamo
+        colPrestamoFecha.setCellValueFactory(new PropertyValueFactory<>("fecha_prestamo"));
+
+        // Aplicar un formato de fecha
+        colPrestamoFecha.setCellFactory(column -> new TableCell<Prestamo, LocalDate>() {
+            private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            @Override
+            protected void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    // Formatear la fecha
+                    String formattedDate = item.format(formatter);
+                    setText(formattedDate);
+                }
+            }
+        });
 
         //Cargar datos a las tablas
         cargarTodasTablas();
