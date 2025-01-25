@@ -53,11 +53,6 @@ public class Prestamo {
 
     @Override
     public String toString() {
-        return "Prestamo{" +
-                "id=" + id +
-                ", alumno=" + alumno +
-                ", libro=" + libro +
-                ", fecha_prestamo=" + fecha_prestamo +
-                '}';
+        return id + " - Alumno: " + alumno.getNombre() + " - Libro: " + libro.getTitulo();
     }
 }

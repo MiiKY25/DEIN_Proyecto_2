@@ -63,12 +63,6 @@ public class Historico {
 
     @Override
     public String toString() {
-        return "Historico{" +
-                "id=" + id +
-                ", alumno=" + alumno +
-                ", libro=" + libro +
-                ", fecha_prestamo=" + fecha_prestamo +
-                ", fecha_devolucion=" + fecha_devolucion +
-                '}';
+        return id + " - Alumno: " + alumno.getNombre() + " - Libro: " + libro.getTitulo();
     }
 }

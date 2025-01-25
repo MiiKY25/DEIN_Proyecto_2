@@ -51,11 +51,6 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return "Alumno{" +
-                "dni=" + dni +
-                ", nombre='" + nombre + '\'' +
-                ", apellido1='" + apellido1 + '\'' +
-                ", apellido2='" + apellido2 + '\'' +
-                '}';
+        return dni + " - " + nombre;
     }
 }
