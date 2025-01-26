@@ -115,7 +115,10 @@ public class ControllerBiblioteca {
     private Button btnEditarLibro;
 
     @FXML
-    private Button btnEliminarAlumno;
+    private ComboBox<String> comboFiltroHistorico;
+
+    @FXML
+    private TextField txtFiltroHistorico;
 
     @FXML
     void accionAniadirLibro(ActionEvent event) {
@@ -259,12 +262,7 @@ public class ControllerBiblioteca {
     }
 
     @FXML
-    void accionEliminarAlumno(ActionEvent event) {
-
-    }
-
-    @FXML
-    void accionAñadirHistoricoPrestamos(ActionEvent event) {
+    void accionFiltrarHistorico(ActionEvent event) {
 
     }
 
@@ -480,7 +478,6 @@ public class ControllerBiblioteca {
         btnEditarLibro.setDisable(true);
         btnBajaLibro.setDisable(true);
         btnEditarAlumno.setDisable(true);
-        btnEliminarAlumno.setDisable(true);
 
         // Agregar un listener a la tabla para habilitar/deshabilitar los botones
         tablaLibro.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -491,7 +488,6 @@ public class ControllerBiblioteca {
         tablaAlumno.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             boolean itemSeleccionado = newSelection != null;
             btnEditarAlumno.setDisable(!itemSeleccionado);
-            btnEliminarAlumno.setDisable(!itemSeleccionado);
         });
     }
 
