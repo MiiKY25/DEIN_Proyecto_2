@@ -3,6 +3,7 @@ package org.mikel.dein_proyecto_2.controladores;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -119,6 +120,8 @@ public class ControllerBiblioteca {
 
     @FXML
     private TextField txtFiltroHistorico;
+
+    private ObservableList<Historico> historicos = FXCollections.observableArrayList();
 
     @FXML
     void accionAniadirLibro(ActionEvent event) {
@@ -263,6 +266,28 @@ public class ControllerBiblioteca {
 
     @FXML
     void accionFiltrarHistorico(ActionEvent event) {
+        // Obtener el texto ingresado y el filtro seleccionado
+        String filtro = comboFiltroHistorico.getValue();
+        String textoFiltro = txtFiltroHistorico.getText().toLowerCase().trim();
+
+        // Si el campo de texto está vacío, cargar todos los datos
+        if (textoFiltro.isEmpty()) {
+            cargarHistorico();
+            return;
+        }
+
+        ObservableList<Historico> todosHistoricos = DaoHistorico.todosHistoricos();
+
+        if (filtro.equals("ID")) {
+            tablaHistorico.setItems(todosHistoricos.filtered(historico ->
+                    String.valueOf(historico.getId()).contains(textoFiltro)));
+        } else if (filtro.equals("DNI")) {
+            tablaHistorico.setItems(todosHistoricos.filtered(historico ->
+                    historico.getAlumno().getDni().toLowerCase().contains(textoFiltro)));
+        } else if (filtro.equals("Libro")) {
+            tablaHistorico.setItems(todosHistoricos.filtered(historico ->
+                    String.valueOf(historico.getLibro().getCodigo()).contains(textoFiltro)));
+        }
 
     }
 
@@ -489,6 +514,16 @@ public class ControllerBiblioteca {
             boolean itemSeleccionado = newSelection != null;
             btnEditarAlumno.setDisable(!itemSeleccionado);
         });
+
+        //Cargar opciones al combobox del filtro historico
+        comboFiltroHistorico.getItems().addAll(
+                "ID",
+                "DNI",
+                "Libro"
+        );
+        //Elegir el primer item
+        comboFiltroHistorico.getSelectionModel().selectFirst();
+
     }
 
 }
