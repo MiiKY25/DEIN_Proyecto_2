@@ -1,9 +1,9 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="Informe1" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a3b04147-a413-40a4-88ae-a182fbae435c">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Conexion MariaDB Docker"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Conexion MariaDB"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="IMAGE_PATH" class="java.lang.String"/>
-	<parameter name="ID_PRESTAMO" class="java.lang.String"/>
+	<parameter name="ID_PRESTAMO" class="java.lang.Integer"/>
 	<query language="sql"><![CDATA[SELECT 
     p.id_prestamo,
     a.dni AS alumno_dni,
@@ -105,7 +105,7 @@ WHERE
 			<text><![CDATA[DETALLE PRESTAMO]]></text>
 		</element>
 	</pageHeader>
-	<columnHeader height="630" splitType="Stretch">
+	<columnHeader height="539" splitType="Stretch">
 		<element kind="staticText" uuid="28d86804-54a0-4e08-b290-7334986442dc" x="20" y="40" width="100" height="30" fontSize="16.0" vTextAlign="Middle">
 			<text><![CDATA[ALUMNO]]></text>
 		</element>
@@ -179,7 +179,7 @@ WHERE
 			<pen lineStyle="Dotted"/>
 		</element>
 		<element kind="textField" uuid="90f61724-465f-4508-ab6c-932682e7b370" x="130" y="460" width="100" height="30" vTextAlign="Middle">
-			<expression><![CDATA[$F{fecha_prestamo}]]></expression>
+			<expression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{fecha_prestamo})]]></expression>
 		</element>
 		<element kind="staticText" uuid="b05a5e7d-288f-4fb1-8125-30a99b87f204" x="20" y="460" width="100" height="30" bold="true" hTextAlign="Left" vTextAlign="Middle">
 			<text><![CDATA[FECHA PRESTAMO]]></text>
@@ -188,7 +188,7 @@ WHERE
 			<text><![CDATA[FECHA LIMITE DEVOLUCION]]></text>
 		</element>
 		<element kind="textField" uuid="66b32839-756b-4bb7-b2bf-ab8311fc199e" x="130" y="490" width="100" height="30" vTextAlign="Middle">
-			<expression><![CDATA[$F{fecha_devolucion}]]></expression>
+			<expression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{fecha_devolucion})]]></expression>
 		</element>
 		<element kind="staticText" uuid="76511f09-6443-4f3c-812d-9074ce2177f0" x="20" y="380" width="100" height="30" bold="true" hTextAlign="Left" vTextAlign="Middle">
 			<text><![CDATA[ESTADO]]></text>
