@@ -84,7 +84,9 @@ public class ControllerAlumno {
         }
 
         if (txtDNI.getText().isEmpty()) {
-            error += "El campo 'DNI' no puede estar vacio\n";
+            error += "El campo 'DNI' no puede estar vacío\n";
+        } else if (txtDNI.getText().length() > 9) {
+            error += "El campo 'DNI' no puede tener más de 9 caracteres\n";
         }
 
         if (txtApellido1.getText().isEmpty()) {
