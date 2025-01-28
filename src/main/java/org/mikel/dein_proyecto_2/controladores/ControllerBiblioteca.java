@@ -310,7 +310,14 @@ public class ControllerBiblioteca {
 
     @FXML
     void accionInformeGraficos(ActionEvent event) {
+        Map<String, Object> parameters = new HashMap<>();
 
+        // Añadir la ruta de las imágenes
+        String imagePath = getClass().getResource("/imagenes/").toString(); // Ruta de la carpeta de imágenes
+        parameters.put("IMAGE_PATH", imagePath);
+        String resourcePath = getClass().getResource("/jasper/").toString();
+        parameters.put("Resource_PATH", resourcePath);
+        generarInforme("Informe3.jasper",parameters);
     }
 
     @FXML
