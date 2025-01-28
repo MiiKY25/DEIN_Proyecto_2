@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -23,6 +24,13 @@
       <MenuBar>
         <menus>
           <Menu mnemonicParsing="false" onAction="#accionAyuda" text="Ayuda" />
+            <Menu mnemonicParsing="false" onAction="#accionAyuda" text="Informes">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#accionInformeLibros" text="Informe Libros" />
+                  <MenuItem mnemonicParsing="false" onAction="#accionInformeGraficos" text="Informe Graficos" />
+                  <MenuItem mnemonicParsing="false" onAction="#accionInformeAlumnos" text="Informe Alumnos" />
+               </items>
+            </Menu>
           <Menu mnemonicParsing="false" onAction="#accionAcercaDe" text="Acerca De" />
         </menus>
       </MenuBar>

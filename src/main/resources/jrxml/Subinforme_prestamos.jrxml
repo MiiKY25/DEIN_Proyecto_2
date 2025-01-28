@@ -1,6 +1,6 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="Subinforme_prestamos" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a0d9a790-1bb9-42c8-8e56-949bf01cacb4">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Conexion MariaDB"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Conexion MariaDB Docker"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
@@ -63,7 +63,7 @@ WHERE h.codigo_libro =  $P{codigo_libro}
 	</field>
 	<background splitType="Stretch"/>
 	<columnHeader height="80" splitType="Stretch">
-		<element kind="staticText" uuid="0da33f74-404e-479b-9684-ca387c52fe48" x="-20" y="0" width="410" height="30" fontSize="9.0">
+		<element kind="staticText" uuid="0da33f74-404e-479b-9684-ca387c52fe48" x="-20" y="0" width="410" height="30" fontSize="13.0">
 			<text><![CDATA[Historial Prestamos]]></text>
 		</element>
 		<element kind="rectangle" uuid="8559faff-9cc0-40cf-b59d-c33ed09a412f" x="-20" y="50" width="140" height="30" backcolor="#4DDBFF">

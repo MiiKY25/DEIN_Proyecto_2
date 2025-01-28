@@ -6,6 +6,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.util.JRLoader;
+import org.mikel.dein_proyecto_2.bbdd.ConexionBBDD;
 import org.mikel.dein_proyecto_2.dao.DaoAlumno;
 import org.mikel.dein_proyecto_2.dao.DaoLibro;
 import org.mikel.dein_proyecto_2.dao.DaoPrestamo;
@@ -13,7 +16,13 @@ import org.mikel.dein_proyecto_2.modelos.Alumno;
 import org.mikel.dein_proyecto_2.modelos.Libro;
 import org.mikel.dein_proyecto_2.modelos.Prestamo;
 
+import java.awt.*;
+import java.io.File;
+import java.io.InputStream;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ControllerPrestamo {
 
@@ -33,6 +42,7 @@ public class ControllerPrestamo {
             Prestamo p=new Prestamo(0,comboAlumnos.getValue(),comboLibros.getValue(),fecha.getValue());
             if (DaoPrestamo.crearPrestamo(p)){
                 mostrarInfo("Prestamo creado correctamente");
+                //generarInformePDF("Informe1.jasper", p.getId());
                 cerrarVentana();
             }else {
                 mostrarInfo("Error al crear el Prestamo");
@@ -51,6 +61,55 @@ public class ControllerPrestamo {
         Stage stage = (Stage) fecha.getScene().getWindow();
         stage.close();
     }
+
+    private void generarInformePDF(String archivoJasper, int idPrestamo) {
+        ConexionBBDD db;
+        try {
+            // Crear una nueva conexión a la base de datos
+            db = new ConexionBBDD();
+
+            // Cargar el archivo Jasper del informe
+            InputStream reportStream = db.getClass().getResourceAsStream("/jasper/" + archivoJasper);
+
+            // Verificar si el archivo fue encontrado
+            if (reportStream == null) {
+                mostrarError("Archivo Jasper no encontrado: " + archivoJasper);
+                return;
+            }
+
+            // Cargar el informe Jasper
+            JasperReport report = (JasperReport) JRLoader.loadObject(reportStream);
+
+            // Parámetros del informe
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("ID_PRESTAMO", idPrestamo); // Pasar el ID del préstamo como parámetro
+
+            // Añadir el parámetro para la ruta de imágenes
+            String imagePath = db.getClass().getResource("/imagenes/").toString(); // Ruta de la carpeta de imágenes
+            parameters.put("IMAGE_PATH", imagePath);
+
+            // Llenar el informe con datos
+            JasperPrint jprint = JasperFillManager.fillReport(report, parameters, db.getConnection());
+
+            // Ruta para guardar el PDF
+            String outputPath = System.getProperty("user.home") + "/prestamo_" + idPrestamo + ".pdf";
+
+            // Exportar a PDF
+            JasperExportManager.exportReportToPdfFile(jprint, outputPath);
+
+            // Notificar al usuario que el PDF fue generado
+            mostrarInfo("Informe generado correctamente: " + outputPath);
+
+        } catch (SQLException e) {
+            mostrarError("No se ha podido establecer conexión con la Base de Datos");
+            e.printStackTrace();
+        } catch (JRException e) {
+            mostrarError("Error al procesar el informe Jasper");
+            e.printStackTrace();
+        }
+    }
+
+
 
     /**
      * Metodo que valida los datos ingresados en los campos del formulario.

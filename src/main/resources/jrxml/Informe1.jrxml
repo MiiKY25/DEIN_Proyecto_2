@@ -91,7 +91,7 @@ WHERE
 			<pen lineWidth="0.0"/>
 		</element>
 		<element kind="image" uuid="32c8ff08-592c-413e-9987-553a37ef8aed" x="20" y="0" width="80" height="80">
-			<expression><![CDATA["logo.png"]]></expression>
+			<expression><![CDATA[$P{IMAGE_PATH} + "logo.png"]]></expression>
 		</element>
 		<element kind="staticText" uuid="fa84bf38-4503-4734-911d-a513e3491b69" x="309" y="10" width="235" height="50" forecolor="#FFFFFF" fontSize="29.0" hTextAlign="Right">
 			<text><![CDATA[LEKTORIKA]]></text>

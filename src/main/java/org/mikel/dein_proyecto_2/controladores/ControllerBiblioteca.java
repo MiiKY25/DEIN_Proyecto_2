@@ -15,6 +15,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import org.mikel.dein_proyecto_2.bbdd.ConexionBBDD;
 import org.mikel.dein_proyecto_2.dao.DaoAlumno;
 import org.mikel.dein_proyecto_2.dao.DaoHistorico;
@@ -26,14 +32,13 @@ import org.mikel.dein_proyecto_2.modelos.Libro;
 import org.mikel.dein_proyecto_2.modelos.Prestamo;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-import java.util.Properties;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ControllerBiblioteca {
 
@@ -292,6 +297,28 @@ public class ControllerBiblioteca {
     }
 
     @FXML
+    void accionInformeLibros(ActionEvent event) {
+        Map<String, Object> parameters = new HashMap<>();
+
+        // Añadir la ruta de las imágenes
+        String imagePath = getClass().getResource("/imagenes/").toString(); // Ruta de la carpeta de imágenes
+        parameters.put("IMAGE_PATH", imagePath);
+        String resourcePath = getClass().getResource("/jasper/").toString();
+        parameters.put("Resource_PATH", resourcePath);
+        generarInforme("Informe2.jasper",parameters);
+    }
+
+    @FXML
+    void accionInformeGraficos(ActionEvent event) {
+
+    }
+
+    @FXML
+    void accionInformeAlumnos(ActionEvent event) {
+
+    }
+
+    @FXML
     void accionAcercaDe(ActionEvent event) {
 
     }
@@ -300,6 +327,52 @@ public class ControllerBiblioteca {
     void accionAyuda(ActionEvent event) {
 
     }
+
+    private void generarInforme(String archivoJasper, Map<String, Object> parameters) {
+        ConexionBBDD db;
+        try {
+            // Crear una nueva conexión a la base de datos
+            db = new ConexionBBDD();
+
+            // Cargar el archivo Jasper del informe
+            InputStream reportStream = db.getClass().getResourceAsStream("/jasper/" + archivoJasper);
+
+            // Verificar si el archivo fue encontrado
+            if (reportStream == null) {
+                System.out.println("Archivo NO encontrado");
+                return;
+            }
+
+            // Cargar el informe Jasper
+            JasperReport report = (JasperReport) JRLoader.loadObject(reportStream);
+
+            // Verificar si el mapa de parámetros es nulo o vacío
+            if (parameters == null) {
+                parameters = new HashMap<>();
+            }
+
+            // Añadir la ruta de las imágenes si no está ya en los parámetros
+            if (!parameters.containsKey("IMAGE_PATH")) {
+                String imagePath = db.getClass().getResource("/imagenes/").toString(); // Ruta de la carpeta de imágenes
+                parameters.put("IMAGE_PATH", imagePath);
+            }
+
+            // Llenar el informe con datos
+            JasperPrint jprint = JasperFillManager.fillReport(report, parameters, db.getConnection());
+
+            // Mostrar el informe
+            JasperViewer viewer = new JasperViewer(jprint, false);
+            viewer.setVisible(true);
+
+        } catch (SQLException e) {
+            mostrarError("No se ha podido establecer conexión con la Base de Datos");
+            e.printStackTrace();
+        } catch (JRException e) {
+            mostrarError("Error al procesar el informe Jasper");
+            e.printStackTrace();
+        }
+    }
+
 
     void cargarLibros() {
         ObservableList<Libro> listaLibros = DaoLibro.todosLibrosActivos();

@@ -1,6 +1,6 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="Informe2" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="12ca426c-6803-4325-bb56-dbbc3bf89ca6">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Conexion MariaDB"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Conexion MariaDB Docker"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="IMAGE_PATH" class="java.lang.String"/>
 	<parameter name="Resource_PATH" class="java.lang.String"/>
@@ -44,7 +44,7 @@ FROM
 			<pen lineWidth="0.0"/>
 		</element>
 		<element kind="image" uuid="94d7ab2b-867e-4d3b-b871-bec7897766b9" x="20" y="0" width="80" height="74">
-			<expression><![CDATA["logo.png"]]></expression>
+			<expression><![CDATA[$P{IMAGE_PATH} + "logo.png"]]></expression>
 		</element>
 		<element kind="staticText" uuid="589010d3-e6ef-4ad6-b1cf-ff53318772ed" x="309" y="10" width="235" height="50" forecolor="#FFFFFF" fontSize="29.0" hTextAlign="Right">
 			<text><![CDATA[LEKTORIKA]]></text>
@@ -59,8 +59,8 @@ FROM
 		</element>
 	</pageHeader>
 	<detail>
-		<band height="132" splitType="Stretch">
-			<element kind="textField" uuid="1033d940-8e53-4c91-ad4c-f0b1ba5002bb" x="20" y="10" width="500" height="30" fontSize="13.0" bold="false">
+		<band height="88" splitType="Stretch">
+			<element kind="textField" uuid="1033d940-8e53-4c91-ad4c-f0b1ba5002bb" x="20" y="10" width="530" height="30" fontSize="11.0" bold="false">
 				<expression><![CDATA["Código: " + $F{codigo} + 
 " | Título: " + $F{titulo} + 
 " | Autor: " + $F{autor} + 
@@ -68,7 +68,7 @@ FROM
 " | Estado: " + $F{estado}
 ]]></expression>
 			</element>
-			<element kind="subreport" uuid="0a3c937e-c01a-4109-bb8a-98ffe7c43701" x="-20" y="60" width="40" height="30">
+			<element kind="subreport" uuid="0a3c937e-c01a-4109-bb8a-98ffe7c43701" x="20" y="50" width="40" height="30">
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<expression><![CDATA[$P{Resource_PATH} + "Subinforme_prestamos.jasper"]]></expression>
 				<parameter name="codigo_libro">
