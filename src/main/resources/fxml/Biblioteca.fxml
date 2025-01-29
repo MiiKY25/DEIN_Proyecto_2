@@ -35,7 +35,10 @@
                   <MenuItem mnemonicParsing="false" onAction="#accionInformeAlumnos" text="%biblio.menu.informes.alumnos" />
                </items>
             </Menu>
-          <Menu mnemonicParsing="false" onAction="#accionAcercaDe" text="%biblio.menu.acercade" />
+          <Menu mnemonicParsing="false" text="%biblio.menu.acercade">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#accionAcercaDe" text="%biblio.menu.acercade" />
+               </items></Menu>
             <Menu mnemonicParsing="false" text="%biblio.menu.idioma">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#cambiarEspanol" text="Español" />
