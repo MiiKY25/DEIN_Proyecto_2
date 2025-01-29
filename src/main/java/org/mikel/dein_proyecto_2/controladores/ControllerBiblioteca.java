@@ -131,7 +131,14 @@ public class ControllerBiblioteca {
     @FXML
     void accionAniadirLibro(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Libro.fxml"));
+            Properties properties = ConexionBBDD.cargarIdioma();
+            String lang = properties.getProperty("language");
+
+            // Cargar el recurso de idioma adecuado
+            Locale locale = new Locale(lang);
+            ResourceBundle bundle = ResourceBundle.getBundle("idiomas/lang", locale);
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Libro.fxml"), bundle);
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
@@ -152,7 +159,14 @@ public class ControllerBiblioteca {
     void accionModificarLibro(ActionEvent event) {
         Libro libro=tablaLibro.getSelectionModel().getSelectedItem();
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Libro.fxml"));
+            Properties properties = ConexionBBDD.cargarIdioma();
+            String lang = properties.getProperty("language");
+
+            // Cargar el recurso de idioma adecuado
+            Locale locale = new Locale(lang);
+            ResourceBundle bundle = ResourceBundle.getBundle("idiomas/lang", locale);
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Libro.fxml"),bundle);
             Parent root = fxmlLoader.load();
 
             ControllerLibro controller=fxmlLoader.getController();
@@ -187,7 +201,14 @@ public class ControllerBiblioteca {
     @FXML
     void accionAniadirAlumno(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Alumno.fxml"));
+            Properties properties = ConexionBBDD.cargarIdioma();
+            String lang = properties.getProperty("language");
+
+            // Cargar el recurso de idioma adecuado
+            Locale locale = new Locale(lang);
+            ResourceBundle bundle = ResourceBundle.getBundle("idiomas/lang", locale);
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Alumno.fxml"),bundle);
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
@@ -208,7 +229,14 @@ public class ControllerBiblioteca {
     void accionModificarAlumno(ActionEvent event) {
         Alumno alumno=tablaAlumno.getSelectionModel().getSelectedItem();
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Alumno.fxml"));
+            Properties properties = ConexionBBDD.cargarIdioma();
+            String lang = properties.getProperty("language");
+
+            // Cargar el recurso de idioma adecuado
+            Locale locale = new Locale(lang);
+            ResourceBundle bundle = ResourceBundle.getBundle("idiomas/lang", locale);
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Alumno.fxml"),bundle);
             Parent root = fxmlLoader.load();
 
             ControllerAlumno controller=fxmlLoader.getController();
@@ -232,7 +260,14 @@ public class ControllerBiblioteca {
     @FXML
     void accionNuevoPrestamo(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Prestamo.fxml"));
+            Properties properties = ConexionBBDD.cargarIdioma();
+            String lang = properties.getProperty("language");
+
+            // Cargar el recurso de idioma adecuado
+            Locale locale = new Locale(lang);
+            ResourceBundle bundle = ResourceBundle.getBundle("idiomas/lang", locale);
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Prestamo.fxml"),bundle);
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
@@ -252,7 +287,14 @@ public class ControllerBiblioteca {
     @FXML
     void accionDevolver(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Devolver.fxml"));
+            Properties properties = ConexionBBDD.cargarIdioma();
+            String lang = properties.getProperty("language");
+
+            // Cargar el recurso de idioma adecuado
+            Locale locale = new Locale(lang);
+            ResourceBundle bundle = ResourceBundle.getBundle("idiomas/lang", locale);
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Devolver.fxml"),bundle);
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
             Stage stage = new Stage();

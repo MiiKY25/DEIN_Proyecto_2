@@ -15,7 +15,7 @@
    <children>
       <HBox alignment="CENTER" prefHeight="57.0" prefWidth="451.0">
          <children>
-            <Label text="LIBROS">
+            <Label text="%libro.label.libros">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -26,13 +26,13 @@
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="176.0" prefWidth="219.0" spacing="4.0">
                <children>
-                  <Label text="Titulo" />
+                  <Label text="%libro.label.titulo" />
                   <TextField fx:id="txtTitulo" />
-                  <Label text="Autor" />
+                  <Label text="%libro.label.autor" />
                   <TextField fx:id="txtAutor" />
-                  <Label text="Editorial" />
+                  <Label text="%libro.label.editorial" />
                   <TextField fx:id="txtEditorial" />
-                  <Label text="Estado" />
+                  <Label text="%libro.label.estado" />
                   <ComboBox fx:id="comboEstado" prefHeight="24.0" prefWidth="263.0" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="ALWAYS" />
                </children>
@@ -44,8 +44,8 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="221.0" spacing="50.0">
                      <children>
-                        <Label text="Portada:" />
-                        <Button mnemonicParsing="false" onAction="#accionSeleccionarImagen" text="Seleccionar" />
+                        <Label text="%libro.label.portada" />
+                        <Button mnemonicParsing="false" onAction="#accionSeleccionarImagen" text="%libro.btn.seleccionar" />
                      </children>
                      <VBox.margin>
                         <Insets />
@@ -65,7 +65,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="29.0" prefWidth="236.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Button fx:id="btnBorrarFoto" mnemonicParsing="false" onAction="#accionBorrarImagen" text="Borrar" />
+                        <Button fx:id="btnBorrarFoto" mnemonicParsing="false" onAction="#accionBorrarImagen" text="%libro.btn.borrar" />
                      </children>
                   </HBox>
                </children>
@@ -74,8 +74,8 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="62.0" prefWidth="451.0" spacing="70.0" VBox.vgrow="ALWAYS">
          <children>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#accionGuardar" text="Guardar" />
-            <Button cancelButton="true" mnemonicParsing="false" onAction="#accionCancelar" text="Cancelar" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#accionGuardar" text="%libro.btn.guardar" />
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#accionCancelar" text="%libro.btn.cancelar" />
          </children>
       </HBox>
    </children>
