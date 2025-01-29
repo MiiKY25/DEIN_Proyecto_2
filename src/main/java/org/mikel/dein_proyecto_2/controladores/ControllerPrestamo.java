@@ -8,6 +8,7 @@ import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import org.mikel.dein_proyecto_2.bbdd.ConexionBBDD;
 import org.mikel.dein_proyecto_2.dao.DaoAlumno;
 import org.mikel.dein_proyecto_2.dao.DaoLibro;
@@ -40,9 +41,11 @@ public class ControllerPrestamo {
         String error=validadDatos();
         if (error.isEmpty()){
             Prestamo p=new Prestamo(0,comboAlumnos.getValue(),comboLibros.getValue(),fecha.getValue());
-            if (DaoPrestamo.crearPrestamo(p)){
+            int idPrestamo=DaoPrestamo.crearPrestamo(p);
+            if (idPrestamo != -1) {
                 mostrarInfo("Prestamo creado correctamente");
-                //generarInformePDF("Informe1.jasper", p.getId());
+                System.out.println("ID "+p.getId());
+                mostrarInforme(idPrestamo);
                 cerrarVentana();
             }else {
                 mostrarInfo("Error al crear el Prestamo");
@@ -62,7 +65,17 @@ public class ControllerPrestamo {
         stage.close();
     }
 
-    private void generarInformePDF(String archivoJasper, int idPrestamo) {
+    void mostrarInforme(int id){
+        Map<String, Object> parameters = new HashMap<>();
+
+        // Añadir la ruta de las imágenes
+        String imagePath = getClass().getResource("/imagenes/").toString(); // Ruta de la carpeta de imágenes
+        parameters.put("IMAGE_PATH", imagePath);
+        parameters.put("ID_PRESTAMO", id);
+        generarInforme("Informe1.jasper",parameters);
+    }
+
+    private void generarInforme(String archivoJasper, Map<String, Object> parameters) {
         ConexionBBDD db;
         try {
             // Crear una nueva conexión a la base de datos
@@ -73,32 +86,30 @@ public class ControllerPrestamo {
 
             // Verificar si el archivo fue encontrado
             if (reportStream == null) {
-                mostrarError("Archivo Jasper no encontrado: " + archivoJasper);
+                System.out.println("Archivo NO encontrado");
                 return;
             }
 
             // Cargar el informe Jasper
             JasperReport report = (JasperReport) JRLoader.loadObject(reportStream);
 
-            // Parámetros del informe
-            Map<String, Object> parameters = new HashMap<>();
-            parameters.put("ID_PRESTAMO", idPrestamo); // Pasar el ID del préstamo como parámetro
+            // Verificar si el mapa de parámetros es nulo o vacío
+            if (parameters == null) {
+                parameters = new HashMap<>();
+            }
 
-            // Añadir el parámetro para la ruta de imágenes
-            String imagePath = db.getClass().getResource("/imagenes/").toString(); // Ruta de la carpeta de imágenes
-            parameters.put("IMAGE_PATH", imagePath);
+            // Añadir la ruta de las imágenes si no está ya en los parámetros
+            if (!parameters.containsKey("IMAGE_PATH")) {
+                String imagePath = db.getClass().getResource("/imagenes/").toString(); // Ruta de la carpeta de imágenes
+                parameters.put("IMAGE_PATH", imagePath);
+            }
 
             // Llenar el informe con datos
             JasperPrint jprint = JasperFillManager.fillReport(report, parameters, db.getConnection());
 
-            // Ruta para guardar el PDF
-            String outputPath = System.getProperty("user.home") + "/prestamo_" + idPrestamo + ".pdf";
-
-            // Exportar a PDF
-            JasperExportManager.exportReportToPdfFile(jprint, outputPath);
-
-            // Notificar al usuario que el PDF fue generado
-            mostrarInfo("Informe generado correctamente: " + outputPath);
+            // Mostrar el informe
+            JasperViewer viewer = new JasperViewer(jprint, false);
+            viewer.setVisible(true);
 
         } catch (SQLException e) {
             mostrarError("No se ha podido establecer conexión con la Base de Datos");

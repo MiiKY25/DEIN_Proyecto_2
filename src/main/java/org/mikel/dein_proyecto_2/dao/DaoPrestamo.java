@@ -44,26 +44,38 @@ public class DaoPrestamo {
         return prestamos;
     }
 
-    public static boolean crearPrestamo(Prestamo p) {
+    public static int crearPrestamo(Prestamo p) {
         ConexionBBDD connection;
-        int resul = 0;
+        int generatedId = -1; // Valor por defecto en caso de error o si no se genera un ID
         try {
             connection = new ConexionBBDD();
-            String consulta = "INSERT INTO Prestamo (dni_alumno,codigo_libro,fecha_prestamo) VALUES (?,?,?) ";
-            PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
+            String consulta = "INSERT INTO Prestamo (dni_alumno, codigo_libro, fecha_prestamo) VALUES (?, ?, ?)";
+            PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta, PreparedStatement.RETURN_GENERATED_KEYS);
+
             pstmt.setString(1, p.getAlumno().getDni());
             pstmt.setInt(2, p.getLibro().getCodigo());
-            // Fecha LocalDate
             pstmt.setDate(3, Date.valueOf(p.getFecha_prestamo()));
 
-            resul = pstmt.executeUpdate();
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                // Obtener el ID generado
+                ResultSet rs = pstmt.getGeneratedKeys();
+                if (rs.next()) {
+                    generatedId = rs.getInt(1);  // El primer campo es el ID generado
+                }
+                rs.close();
+            }
+
             pstmt.close();
             connection.CloseConexion();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return resul > 0;
+
+        return generatedId;  // Devuelve el ID generado o -1 si no se generó ningún ID
     }
+
 
     public static boolean eliminarPrestamo(Prestamo p) {
         ConexionBBDD connection;
