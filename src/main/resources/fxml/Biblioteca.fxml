@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.mikel.dein_proyecto_2.controladores.ControllerBiblioteca">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="700.0" stylesheets="@../estilos/estilo.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.mikel.dein_proyecto_2.controladores.ControllerBiblioteca">
    <children>
       <MenuBar>
         <menus>
@@ -72,9 +72,9 @@
                      <children>
                         <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="700.0" spacing="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#accionAniadirLibro" text="%biblio.btn.aniadir" />
+                              <Button mnemonicParsing="false" onAction="#accionAniadirLibro" styleClass="guardar-button" text="%biblio.btn.aniadir" />
                               <Button fx:id="btnEditarLibro" mnemonicParsing="false" onAction="#accionModificarLibro" text="%biblio.btn.modificar" />
-                              <Button fx:id="btnBajaLibro" mnemonicParsing="false" onAction="#accionBajaLibro" text="%biblio.btn.baja" />
+                              <Button fx:id="btnBajaLibro" mnemonicParsing="false" onAction="#accionBajaLibro" styleClass="eliminar-button" text="%biblio.btn.baja" />
                            </children>
                         </HBox>
                         <TableView fx:id="tablaLibro" layoutY="46.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="243.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
@@ -100,7 +100,7 @@
                      <children>
                         <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="700.0" spacing="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#accionAniadirAlumno" text="%biblio.btn.aniadir" />
+                              <Button mnemonicParsing="false" onAction="#accionAniadirAlumno" styleClass="guardar-button" text="%biblio.btn.aniadir" />
                               <Button fx:id="btnEditarAlumno" mnemonicParsing="false" onAction="#accionModificarAlumno" text="%biblio.btn.modificar" />
                            </children>
                         </HBox>

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="242.0" prefWidth="288.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.mikel.dein_proyecto_2.controladores.ControllerDevolver">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="242.0" prefWidth="288.0" stylesheets="@../estilos/estilo.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.mikel.dein_proyecto_2.controladores.ControllerDevolver">
    <children>
       <HBox alignment="CENTER" prefHeight="69.0" prefWidth="288.0">
          <children>
@@ -35,8 +35,8 @@
       </VBox>
       <HBox alignment="CENTER" prefHeight="53.0" prefWidth="288.0" spacing="30.0" VBox.vgrow="ALWAYS">
          <children>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#accionDevolver" text="%devolver.btn.devolver" />
-            <Button cancelButton="true" mnemonicParsing="false" onAction="#accionCancelar" text="%devolver.btn.cancelar" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#accionDevolver" styleClass="guardar-button" text="%devolver.btn.devolver" />
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#accionCancelar" styleClass="eliminar-button" text="%devolver.btn.cancelar" />
          </children>
       </HBox>
    </children>

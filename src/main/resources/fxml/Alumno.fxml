@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="244.0" prefWidth="395.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.mikel.dein_proyecto_2.controladores.ControllerAlumno">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="244.0" prefWidth="395.0" stylesheets="@../estilos/estilo.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.mikel.dein_proyecto_2.controladores.ControllerAlumno">
    <children>
       <HBox alignment="CENTER" prefHeight="52.0" prefWidth="395.0">
          <children>
@@ -81,8 +81,8 @@
       </GridPane>
       <HBox alignment="CENTER" prefHeight="28.0" prefWidth="395.0" spacing="50.0" VBox.vgrow="ALWAYS">
          <children>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#accionGuardar" text="%alumno.btn.guardar" />
-            <Button cancelButton="true" mnemonicParsing="false" onAction="#accionCancelar" text="%alumno.btn.cancelar" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#accionGuardar" styleClass="guardar-button" text="%alumno.btn.guardar" />
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#accionCancelar" styleClass="eliminar-button" text="%alumno.btn.cancelar" />
          </children>
       </HBox>
    </children>
