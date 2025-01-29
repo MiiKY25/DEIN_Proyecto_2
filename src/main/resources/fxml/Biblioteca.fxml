@@ -122,7 +122,7 @@
                         <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="700.0" spacing="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
                               <Button mnemonicParsing="false" onAction="#accionNuevoPrestamo" text="%biblio.btn.new.prestamo" />
-                              <Button mnemonicParsing="false" onAction="#accionDevolver" text="%biblio.btn.devolver" />
+                              <Button fx:id="btnDevolver" mnemonicParsing="false" onAction="#accionDevolver" text="%biblio.btn.devolver" />
                            </children>
                         </HBox>
                         <TableView fx:id="tablaPrestamo" layoutY="50.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="243.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">

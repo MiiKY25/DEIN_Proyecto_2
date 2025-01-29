@@ -126,6 +126,9 @@ public class ControllerBiblioteca {
     @FXML
     private TextField txtFiltroHistorico;
 
+    @FXML
+    private Button btnDevolver;
+
     private ObservableList<Historico> historicos = FXCollections.observableArrayList();
 
     @FXML
@@ -503,6 +506,13 @@ public class ControllerBiblioteca {
     void cargarPrestamos() {
         ObservableList<Prestamo> listaPrestamos = DaoPrestamo.todosPrestamos();
         tablaPrestamo.setItems(listaPrestamos);
+
+        // Verificar si la tabla está vacía
+        if (listaPrestamos.isEmpty()) {
+            btnDevolver.setDisable(true); // Deshabilitar el botón si no hay datos
+        } else {
+            btnDevolver.setDisable(false); // Habilitar el botón si hay datos
+        }
     }
 
     void cargarHistorico() {
