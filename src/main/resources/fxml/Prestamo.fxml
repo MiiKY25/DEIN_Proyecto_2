@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -22,9 +23,15 @@
       <VBox alignment="TOP_CENTER" prefHeight="190.0" prefWidth="316.0" spacing="10.0">
          <children>
             <Label text="%pres.label.alumno" />
-            <ComboBox fx:id="comboAlumnos" prefHeight="25.0" prefWidth="240.0" />
+            <ComboBox fx:id="comboAlumnos" prefHeight="25.0" prefWidth="240.0">
+               <tooltip>
+                  <Tooltip text="%tooltip.comboAlumno" />
+               </tooltip></ComboBox>
             <Label text="%pres.label.libro" />
-            <ComboBox fx:id="comboLibros" prefHeight="25.0" prefWidth="240.0" />
+            <ComboBox fx:id="comboLibros" prefHeight="25.0" prefWidth="240.0">
+               <tooltip>
+                  <Tooltip text="%tooltip.comboLibro" />
+               </tooltip></ComboBox>
             <Label text="%pres.label.fecha" />
             <DatePicker fx:id="fecha" prefHeight="25.0" prefWidth="240.0" />
          </children>

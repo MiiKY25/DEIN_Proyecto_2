@@ -12,6 +12,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -151,7 +152,10 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtFiltroHistorico" />
+                              <TextField fx:id="txtFiltroHistorico">
+                                 <tooltip>
+                                    <Tooltip text="%tooltip.txtFiltro" />
+                                 </tooltip></TextField>
                               <ComboBox fx:id="comboFiltroHistorico" prefWidth="150.0" />
                               <Button mnemonicParsing="false" onAction="#accionFiltrarHistorico" text="%biblio.btn.filtrar" />
                            </children>
