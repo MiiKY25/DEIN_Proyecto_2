@@ -14,6 +14,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -382,7 +384,24 @@ public class ControllerBiblioteca {
 
     @FXML
     void accionAyuda(ActionEvent event) {
+        System.out.println("ee");
+        try {
+            WebView webView = new WebView();
+            WebEngine webEngine = webView.getEngine();
 
+            // Asegúrate de que la ruta al archivo HTML es correcta
+            String filePath = getClass().getResource("/html/guia.html").toExternalForm();
+            webEngine.load(filePath);
+
+            // Crear una nueva ventana para mostrar la guía
+            Stage guiaStage = new Stage();
+            guiaStage.setTitle("Guía Rápida");
+            guiaStage.setScene(new Scene(webView, 800, 600)); // Tamaño adecuado
+            guiaStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarInfo("Error al abrir la guía.");
+        }
     }
 
     /**

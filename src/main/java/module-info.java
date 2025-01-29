@@ -1,6 +1,7 @@
 module org.mikel.dein_proyecto_2 {
-    requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.controls;
+    requires javafx.web;  // Asegúrate de que esté aquí para usar WebView y WebEngine
     requires java.sql;
     requires net.sf.jasperreports.core;
     requires java.desktop;
