@@ -340,6 +340,68 @@ public class ControllerBiblioteca {
 
     }
 
+    /**
+     * Cambia el idioma de la aplicación a español y actualiza la ventana.
+     * Este metodo guarda la configuración del idioma en la base de datos y luego
+     * actualiza la ventana para reflejar los cambios en el idioma.
+     *
+     * @param event El evento de acción que dispara este metodo. No se usa explícitamente
+     *              pero es necesario para la firma del metodo.
+     */
+    @FXML
+    void cambiarEspanol(ActionEvent event) {
+        ConexionBBDD.guardarIdioma("es");
+        Stage stage = (Stage) txtFiltroHistorico.getScene().getWindow();
+        actualizarVentana(stage);
+    }
+
+    /**
+     * Cambia el idioma de la aplicación a inglés y actualiza la ventana.
+     * Este metodo guarda la configuración del idioma en la base de datos y luego
+     * actualiza la ventana para reflejar los cambios en el idioma.
+     *
+     * @param event El evento de acción que dispara este metodo. No se usa explícitamente
+     *              pero es necesario para la firma del metodo.
+     */
+    @FXML
+    void cambiarIngles(ActionEvent event) {
+        ConexionBBDD.guardarIdioma("en");
+        Stage stage = (Stage) txtFiltroHistorico.getScene().getWindow();
+        actualizarVentana(stage);
+    }
+
+    /**
+     * Actualiza la ventana con el nuevo idioma establecido en el sistema.
+     * Este metodo carga las propiedades de idioma desde la base de datos,
+     * crea un nuevo {@link Locale} según el idioma seleccionado, y luego carga
+     * el archivo FXML de la ventana principal con el nuevo {@link ResourceBundle}.
+     * Finalmente, cambia la raíz de la escena de la ventana principal para reflejar
+     * los cambios de idioma.
+     *
+     * @param stage El {@link Stage} de la ventana principal que se actualizará.
+     *              No debe ser nulo, ya que se usará para cambiar la escena.
+     */
+    public void actualizarVentana(Stage stage) {
+        try {
+            // Cargar las propiedades de idioma y establecer el nuevo locale
+            Properties properties = ConexionBBDD.cargarIdioma();
+            String lang = properties.getProperty("language");
+            Locale locale = new Locale(lang);
+            ResourceBundle bundle = ResourceBundle.getBundle("idiomas/lang", locale);
+
+            // Cargar el archivo FXML de la ventana principal con el nuevo ResourceBundle
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Biblioteca.fxml"), bundle);
+            Parent root = fxmlLoader.load();
+
+            // Verificar que el Stage no sea nulo antes de cambiar la raíz de la escena
+            if (stage != null) {
+                stage.getScene().setRoot(root);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void generarInforme(String archivoJasper, Map<String, Object> parameters) {
         ConexionBBDD db;
         try {

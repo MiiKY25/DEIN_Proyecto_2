@@ -1,7 +1,9 @@
 package org.mikel.dein_proyecto_2.bbdd;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -78,6 +80,40 @@ public class ConexionBBDD {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * Carga las propiedades de idioma desde el archivo "idioma.properties".
+     *
+     * @return Un objeto {@link Properties} con las propiedades del archivo, o {@code null} si ocurre un error.
+     */
+    public static Properties cargarIdioma() {
+        try (FileInputStream fs = new FileInputStream("idioma.properties")) {
+            Properties props = new Properties();
+            props.load(fs);
+            return props;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Guarda el idioma especificado en el archivo "idioma.properties".
+     *
+     * @param nuevoIdioma El código del nuevo idioma (ej. "es", "en").
+     */
+    public static void guardarIdioma(String nuevoIdioma) {
+        Properties properties = cargarIdioma();
+        if (properties != null) {
+            properties.setProperty("language", nuevoIdioma);
+
+            try (OutputStream output = new FileOutputStream("idioma.properties")) {
+                properties.store(output, "");
+            } catch (IOException io) {
+                io.printStackTrace();
+            }
+        }
     }
 
     /*

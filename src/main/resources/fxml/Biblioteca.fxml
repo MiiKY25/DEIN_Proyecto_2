@@ -23,15 +23,21 @@
    <children>
       <MenuBar>
         <menus>
-          <Menu mnemonicParsing="false" onAction="#accionAyuda" text="Ayuda" />
-            <Menu mnemonicParsing="false" onAction="#accionAyuda" text="Informes">
+          <Menu mnemonicParsing="false" onAction="#accionAyuda" text="%biblio.menu.ayuda" />
+            <Menu mnemonicParsing="false" onAction="#accionAyuda" text="%biblio.menu.informes">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#accionInformeLibros" text="Informe Libros" />
-                  <MenuItem mnemonicParsing="false" onAction="#accionInformeGraficos" text="Informe Graficos" />
-                  <MenuItem mnemonicParsing="false" onAction="#accionInformeAlumnos" text="Informe Alumnos" />
+                  <MenuItem mnemonicParsing="false" onAction="#accionInformeLibros" text="%biblio.menu.informes.libros" />
+                  <MenuItem mnemonicParsing="false" onAction="#accionInformeGraficos" text="%biblio.menu.informes.graficos" />
+                  <MenuItem mnemonicParsing="false" onAction="#accionInformeAlumnos" text="%biblio.menu.informes.alumnos" />
                </items>
             </Menu>
-          <Menu mnemonicParsing="false" onAction="#accionAcercaDe" text="Acerca De" />
+          <Menu mnemonicParsing="false" onAction="#accionAcercaDe" text="%biblio.menu.acercade" />
+            <Menu mnemonicParsing="false" text="%biblio.menu.idioma">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#cambiarEspanol" text="Español" />
+                  <MenuItem mnemonicParsing="false" onAction="#cambiarIngles" text="English" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
       <HBox alignment="CENTER" prefHeight="52.0" prefWidth="700.0" spacing="80.0">
@@ -56,15 +62,15 @@
       </HBox>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
         <tabs>
-          <Tab text="Libros">
+          <Tab text="%biblio.tab.libros">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0">
                      <children>
                         <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="700.0" spacing="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#accionAniadirLibro" text="Añadir" />
-                              <Button fx:id="btnEditarLibro" mnemonicParsing="false" onAction="#accionModificarLibro" text="Modificar" />
-                              <Button fx:id="btnBajaLibro" mnemonicParsing="false" onAction="#accionBajaLibro" text="Baja" />
+                              <Button mnemonicParsing="false" onAction="#accionAniadirLibro" text="%biblio.btn.aniadir" />
+                              <Button fx:id="btnEditarLibro" mnemonicParsing="false" onAction="#accionModificarLibro" text="%biblio.btn.modificar" />
+                              <Button fx:id="btnBajaLibro" mnemonicParsing="false" onAction="#accionBajaLibro" text="%biblio.btn.baja" />
                            </children>
                         </HBox>
                         <TableView fx:id="tablaLibro" layoutY="46.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="243.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
@@ -84,14 +90,14 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Alumnos">
+          <Tab text="%biblio.tab.alumnos">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="700.0" spacing="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#accionAniadirAlumno" text="Añadir" />
-                              <Button fx:id="btnEditarAlumno" mnemonicParsing="false" onAction="#accionModificarAlumno" text="Modificar" />
+                              <Button mnemonicParsing="false" onAction="#accionAniadirAlumno" text="%biblio.btn.aniadir" />
+                              <Button fx:id="btnEditarAlumno" mnemonicParsing="false" onAction="#accionModificarAlumno" text="%biblio.btn.modificar" />
                            </children>
                         </HBox>
                         <TableView fx:id="tablaAlumno" layoutY="50.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="243.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
@@ -109,14 +115,14 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Prestamos">
+            <Tab text="%biblio.tab.prestamos">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="700.0" spacing="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#accionNuevoPrestamo" text="Nuevo Prestamo" />
-                              <Button mnemonicParsing="false" onAction="#accionDevolver" text="Devolver Libro" />
+                              <Button mnemonicParsing="false" onAction="#accionNuevoPrestamo" text="%biblio.btn.new.prestamo" />
+                              <Button mnemonicParsing="false" onAction="#accionDevolver" text="%biblio.btn.devolver" />
                            </children>
                         </HBox>
                         <TableView fx:id="tablaPrestamo" layoutY="50.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="243.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
@@ -134,7 +140,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Historico Prestamos">
+            <Tab text="%biblio.tab.historicos">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -147,7 +153,7 @@
                               </Label>
                               <TextField fx:id="txtFiltroHistorico" />
                               <ComboBox fx:id="comboFiltroHistorico" prefWidth="150.0" />
-                              <Button mnemonicParsing="false" onAction="#accionFiltrarHistorico" text="Filtrar" />
+                              <Button mnemonicParsing="false" onAction="#accionFiltrarHistorico" text="%biblio.btn.filtrar" />
                            </children>
                         </HBox>
                         <TableView fx:id="tablaHistorico" layoutY="46.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="243.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
