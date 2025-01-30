@@ -212,7 +212,7 @@ public class DaoLibro {
             SELECT l.codigo, l.titulo, l.autor, l.editorial, l.estado, l.baja, l.imagen
             FROM Libro l
             LEFT JOIN Prestamo p ON l.codigo = p.codigo_libro
-            WHERE l.baja = 1 AND p.id_prestamo IS NULL
+            WHERE l.baja = 0 AND p.id_prestamo IS NULL
         """;
             PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
             ResultSet rs = pstmt.executeQuery();
