@@ -44,7 +44,6 @@ public class ControllerPrestamo {
             int idPrestamo=DaoPrestamo.crearPrestamo(p);
             if (idPrestamo != -1) {
                 mostrarInfo("Prestamo creado correctamente");
-                System.out.println("ID "+p.getId());
                 mostrarInforme(idPrestamo);
                 cerrarVentana();
             }else {

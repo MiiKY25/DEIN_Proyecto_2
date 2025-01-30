@@ -28,7 +28,7 @@
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#accionAyuda" text="%biblio.menu.ayuda" />
                </items></Menu>
-            <Menu mnemonicParsing="false" onAction="#accionAyuda" text="%biblio.menu.informes">
+            <Menu mnemonicParsing="false" text="%biblio.menu.informes">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#accionInformeLibros" text="%biblio.menu.informes.libros" />
                   <MenuItem mnemonicParsing="false" onAction="#accionInformeGraficos" text="%biblio.menu.informes.graficos" />

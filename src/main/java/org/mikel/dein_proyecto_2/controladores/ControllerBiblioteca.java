@@ -38,7 +38,6 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -387,18 +386,17 @@ public class ControllerBiblioteca {
 
     @FXML
     void accionAyuda(ActionEvent event) {
-        System.out.println("ee");
         try {
             WebView webView = new WebView();
             WebEngine webEngine = webView.getEngine();
 
             // Asegúrate de que la ruta al archivo HTML es correcta
-            String filePath = getClass().getResource("/html/guia.html").toExternalForm();
+            String filePath = getClass().getResource("/html/ayuda.html").toExternalForm();
             webEngine.load(filePath);
 
             // Crear una nueva ventana para mostrar la guía
             Stage guiaStage = new Stage();
-            guiaStage.setTitle("Guía Rápida");
+            guiaStage.setTitle("Ayuda");
             guiaStage.setScene(new Scene(webView, 800, 600)); // Tamaño adecuado
             guiaStage.show();
         } catch (Exception e) {
