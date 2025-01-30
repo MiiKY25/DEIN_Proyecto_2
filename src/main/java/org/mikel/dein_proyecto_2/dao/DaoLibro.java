@@ -151,8 +151,8 @@ public class DaoLibro {
         int resul = 0;
         try {
             connection = new ConexionBBDD();
-            // Consulta para actualizar el estado del libro a 'baja = 0'
-            String consulta = "UPDATE Libro SET baja = 0 WHERE codigo = ?";
+            // Consulta para actualizar el estado del libro a 'baja = 1'
+            String consulta = "UPDATE Libro SET baja = 1 WHERE codigo = ?";
             PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
             pstmt.setInt(1, codigo);
 
@@ -175,7 +175,7 @@ public class DaoLibro {
         ObservableList<Libro> libros = FXCollections.observableArrayList();
         try {
             connection = new ConexionBBDD();
-            String consulta = "SELECT codigo,titulo,autor,editorial,estado,baja,imagen FROM Libro WHERE baja=1";
+            String consulta = "SELECT codigo,titulo,autor,editorial,estado,baja,imagen FROM Libro WHERE baja=0";
             PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {

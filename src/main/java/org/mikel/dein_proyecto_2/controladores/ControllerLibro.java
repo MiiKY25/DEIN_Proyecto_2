@@ -82,7 +82,7 @@ public class ControllerLibro {
         if (error.isEmpty()){
             if (libro==null){
                 //Crear Libro
-                Libro l =new Libro(0,txtTitulo.getText(),txtAutor.getText(),txtEditorial.getText(),comboEstado.getValue(),1,imagen);
+                Libro l =new Libro(0,txtTitulo.getText(),txtAutor.getText(),txtEditorial.getText(),comboEstado.getValue(),0,imagen);
                 if (DaoLibro.crearLibro(l)){
                     mostrarInfo("Libro creado correctamente");
                     cerrarVentana();
