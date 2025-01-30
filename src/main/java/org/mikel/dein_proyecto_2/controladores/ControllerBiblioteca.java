@@ -43,95 +43,186 @@ import java.util.*;
 
 public class ControllerBiblioteca {
 
+    /**
+     * Columna de la tabla que muestra el primer apellido del alumno.
+     */
     @FXML
     private TableColumn<Alumno, String> colAlumnoApellido1;
 
+    /**
+     * Columna de la tabla que muestra el segundo apellido del alumno.
+     */
     @FXML
     private TableColumn<Alumno, String> colAlumnoApellido2;
 
+    /**
+     * Columna de la tabla que muestra el DNI del alumno.
+     */
     @FXML
     private TableColumn<Alumno, Integer> colAlumnoDni;
 
+    /**
+     * Columna de la tabla que muestra el nombre del alumno.
+     */
     @FXML
     private TableColumn<Alumno, String> colAlumnoNombre;
 
+    /**
+     * Columna de la tabla que muestra el nombre del alumno en el histórico.
+     */
     @FXML
     private TableColumn<Historico, String> colHistoricoAlumno;
 
+    /**
+     * Columna de la tabla que muestra la fecha de devolución del préstamo en el histórico.
+     */
     @FXML
     private TableColumn<Historico, LocalDate> colHistoricoDevolucion;
 
+    /**
+     * Columna de la tabla que muestra la fecha de inicio del préstamo en el histórico.
+     */
     @FXML
     private TableColumn<Historico, LocalDate> colHistoricoFecha;
 
+    /**
+     * Columna de la tabla que muestra el ID del histórico.
+     */
     @FXML
     private TableColumn<Historico, Integer> colHistoricoID;
 
+    /**
+     * Columna de la tabla que muestra el ID del libro en el histórico.
+     */
     @FXML
     private TableColumn<Historico, Integer> colHistoricoLibro;
 
+    /**
+     * Columna de la tabla que muestra el autor del libro.
+     */
     @FXML
     private TableColumn<Libro, String> colLibroAutor;
 
+    /**
+     * Columna de la tabla que muestra el código del libro.
+     */
     @FXML
     private TableColumn<Libro, Integer> colLibroCodigo;
 
+    /**
+     * Columna de la tabla que muestra la editorial del libro.
+     */
     @FXML
     private TableColumn<Libro, String> colLibroEditorial;
 
+    /**
+     * Columna de la tabla que muestra el estado del libro.
+     */
     @FXML
     private TableColumn<Libro, String> colLibroEstado;
 
+    /**
+     * Columna de la tabla que muestra la imagen del libro.
+     */
     @FXML
     private TableColumn<Libro, Blob> colLibroImagen;
 
+    /**
+     * Columna de la tabla que muestra el título del libro.
+     */
     @FXML
     private TableColumn<Libro, String> colLibroTitulo;
 
+    /**
+     * Columna de la tabla que muestra el nombre del alumno en los préstamos.
+     */
     @FXML
     private TableColumn<Prestamo, String> colPrestamoAlumno;
 
+    /**
+     * Columna de la tabla que muestra la fecha del préstamo.
+     */
     @FXML
     private TableColumn<Prestamo, LocalDate> colPrestamoFecha;
 
+    /**
+     * Columna de la tabla que muestra el ID del préstamo.
+     */
     @FXML
     private TableColumn<Prestamo, Integer> colPrestamoID;
 
+    /**
+     * Columna de la tabla que muestra el ID del libro en los préstamos.
+     */
     @FXML
     private TableColumn<Prestamo, Integer> colPrestamoLibro;
 
+    /**
+     * Tabla de alumnos que se muestra en la interfaz.
+     */
     @FXML
     private TableView<Alumno> tablaAlumno;
 
+    /**
+     * Tabla de históricos de préstamos que se muestra en la interfaz.
+     */
     @FXML
     private TableView<Historico> tablaHistorico;
 
+    /**
+     * Tabla de libros que se muestra en la interfaz.
+     */
     @FXML
     private TableView<Libro> tablaLibro;
 
+    /**
+     * Tabla de préstamos que se muestra en la interfaz.
+     */
     @FXML
     private TableView<Prestamo> tablaPrestamo;
 
+    /**
+     * Botón que permite eliminar un libro.
+     */
     @FXML
     private Button btnBajaLibro;
 
+    /**
+     * Botón que permite editar un alumno.
+     */
     @FXML
     private Button btnEditarAlumno;
 
+    /**
+     * Botón que permite editar un libro.
+     */
     @FXML
     private Button btnEditarLibro;
 
+    /**
+     * ComboBox para filtrar los históricos.
+     */
     @FXML
     private ComboBox<String> comboFiltroHistorico;
 
+    /**
+     * Campo de texto para introducir un filtro de búsqueda en los históricos.
+     */
     @FXML
     private TextField txtFiltroHistorico;
 
+    /**
+     * Botón que permite devolver un libro.
+     */
     @FXML
     private Button btnDevolver;
 
-    private ObservableList<Historico> historicos = FXCollections.observableArrayList();
-
+    /**
+     * Acción que se ejecuta cuando se hace clic en el botón para añadir un nuevo libro.
+     * Carga la ventana de añadir libro y permite interactuar con ella.
+     *
+     * @param event El evento de acción generado por el clic en el botón.
+     */
     @FXML
     void accionAniadirLibro(ActionEvent event) {
         try {
@@ -159,6 +250,12 @@ public class ControllerBiblioteca {
         }
     }
 
+    /**
+     * Acción que se ejecuta cuando se hace clic en el botón para modificar un libro.
+     * Carga la ventana de modificación con los datos del libro seleccionado.
+     *
+     * @param event El evento de acción generado por el clic en el botón.
+     */
     @FXML
     void accionModificarLibro(ActionEvent event) {
         Libro libro=tablaLibro.getSelectionModel().getSelectedItem();
@@ -191,6 +288,12 @@ public class ControllerBiblioteca {
         }
     }
 
+    /**
+     * Acción que se ejecuta cuando se hace clic en el botón para dar de baja un libro.
+     * Elimina el libro seleccionado de la base de datos.
+     *
+     * @param event El evento de acción generado por el clic en el botón.
+     */
     @FXML
     void accionBajaLibro(ActionEvent event) {
         Libro libro=tablaLibro.getSelectionModel().getSelectedItem();
@@ -202,6 +305,12 @@ public class ControllerBiblioteca {
         }
     }
 
+    /**
+     * Acción que se ejecuta cuando se hace clic en el botón para añadir un nuevo alumno.
+     * Carga la ventana de añadir alumno y permite interactuar con ella.
+     *
+     * @param event El evento de acción generado por el clic en el botón.
+     */
     @FXML
     void accionAniadirAlumno(ActionEvent event) {
         try {
@@ -229,6 +338,12 @@ public class ControllerBiblioteca {
         }
     }
 
+    /**
+     * Acción que se ejecuta cuando se hace clic en el botón para modificar un alumno.
+     * Carga la ventana de modificación con los datos del alumno seleccionado.
+     *
+     * @param event El evento de acción generado por el clic en el botón.
+     */
     @FXML
     void accionModificarAlumno(ActionEvent event) {
         Alumno alumno=tablaAlumno.getSelectionModel().getSelectedItem();
@@ -261,6 +376,12 @@ public class ControllerBiblioteca {
         }
     }
 
+    /**
+     * Acción que se ejecuta cuando se hace clic en el botón para crear un nuevo préstamo.
+     * Carga la ventana de creación de préstamo y permite interactuar con ella.
+     *
+     * @param event El evento de acción generado por el clic en el botón.
+     */
     @FXML
     void accionNuevoPrestamo(ActionEvent event) {
         try {
@@ -288,6 +409,12 @@ public class ControllerBiblioteca {
         }
     }
 
+    /**
+     * Acción que se ejecuta cuando se hace clic en el botón para devolver un libro.
+     * Carga la ventana de devolución de libro y permite interactuar con ella.
+     *
+     * @param event El evento de acción generado por el clic en el botón.
+     */
     @FXML
     void accionDevolver(ActionEvent event) {
         try {
@@ -315,6 +442,12 @@ public class ControllerBiblioteca {
         }
     }
 
+    /**
+     * Acción que se ejecuta cuando se hace clic en el botón para filtrar los historicos.
+     * Filtra los datos de la tabla de historicos según el texto ingresado y el filtro seleccionado.
+     *
+     * @param event El evento de acción generado por el clic en el botón.
+     */
     @FXML
     void accionFiltrarHistorico(ActionEvent event) {
         // Obtener el texto ingresado y el filtro seleccionado
@@ -342,6 +475,12 @@ public class ControllerBiblioteca {
 
     }
 
+    /**
+     * Acción que se ejecuta cuando se hace clic en el botón para generar el informe de libros.
+     * Carga el informe de libros en formato Jasper y lo genera con los parámetros necesarios.
+     *
+     * @param event El evento de acción generado por el clic en el botón.
+     */
     @FXML
     void accionInformeLibros(ActionEvent event) {
         Map<String, Object> parameters = new HashMap<>();
@@ -354,6 +493,12 @@ public class ControllerBiblioteca {
         generarInforme("Informe2.jasper",parameters);
     }
 
+    /**
+     * Acción que se ejecuta cuando se hace clic en el botón para generar el informe de gráficos.
+     * Carga el informe de gráficos en formato Jasper y lo genera con los parámetros necesarios.
+     *
+     * @param event El evento de acción generado por el clic en el botón.
+     */
     @FXML
     void accionInformeGraficos(ActionEvent event) {
         Map<String, Object> parameters = new HashMap<>();
@@ -366,6 +511,12 @@ public class ControllerBiblioteca {
         generarInforme("Informe3.jasper",parameters);
     }
 
+    /**
+     * Acción que se ejecuta cuando se hace clic en el botón para generar el informe de alumnos.
+     * Carga el informe de alumnos en formato Jasper y lo genera con los parámetros necesarios.
+     *
+     * @param event El evento de acción generado por el clic en el botón.
+     */
     @FXML
     void accionInformeAlumnos(ActionEvent event) {
         Map<String, Object> parameters = new HashMap<>();
@@ -376,6 +527,12 @@ public class ControllerBiblioteca {
         generarInforme("Informe4.jasper",parameters);
     }
 
+    /**
+     * Acción que se ejecuta cuando se hace clic en el botón "Acerca de".
+     * Muestra información sobre la aplicación, como el nombre y el autor.
+     *
+     * @param event El evento de acción generado por el clic en el botón.
+     */
     @FXML
     void accionAcercaDe(ActionEvent event) {
         String msg="";
@@ -384,6 +541,14 @@ public class ControllerBiblioteca {
         mostrarInfo(msg);
     }
 
+    /**
+     * Acción que se ejecuta cuando se hace clic en el botón "Ayuda".
+     * Carga y muestra la guía de ayuda en una nueva ventana utilizando un WebView.
+     *
+     * Si ocurre algún error al cargar el archivo HTML, se muestra un mensaje de error.
+     *
+     * @param event El evento de acción generado por el clic en el botón.
+     */
     @FXML
     void accionAyuda(ActionEvent event) {
         try {
@@ -467,6 +632,15 @@ public class ControllerBiblioteca {
         }
     }
 
+    /**
+     * Genera un informe Jasper utilizando un archivo Jasper y parámetros proporcionados.
+     * La conexión a la base de datos se realiza a través de la clase ConexionBBDD.
+     *
+     * Si el archivo Jasper o los parámetros son inválidos, se muestra un mensaje de error.
+     *
+     * @param archivoJasper El nombre del archivo Jasper que define el informe a generar.
+     * @param parameters Un mapa de parámetros que se pasará al informe (puede ser nulo).
+     */
     private void generarInforme(String archivoJasper, Map<String, Object> parameters) {
         ConexionBBDD db;
         try {
@@ -512,17 +686,26 @@ public class ControllerBiblioteca {
         }
     }
 
-
+    /**
+     * Carga la lista de libros activos en la tabla de libros.
+     */
     void cargarLibros() {
         ObservableList<Libro> listaLibros = DaoLibro.todosLibrosActivos();
         tablaLibro.setItems(listaLibros);
     }
 
+    /**
+     * Carga la lista de alumnos en la tabla de alumnos.
+     */
     void cargarAlumnos() {
         ObservableList<Alumno> listaAlumnos = DaoAlumno.todosAlumnos();
         tablaAlumno.setItems(listaAlumnos);
     }
 
+    /**
+     * Carga la lista de préstamos en la tabla de préstamos.
+     * También habilita o deshabilita el botón de "Devolver" dependiendo si hay préstamos registrados.
+     */
     void cargarPrestamos() {
         ObservableList<Prestamo> listaPrestamos = DaoPrestamo.todosPrestamos();
         tablaPrestamo.setItems(listaPrestamos);
@@ -535,11 +718,17 @@ public class ControllerBiblioteca {
         }
     }
 
+    /**
+     * Carga la lista de históricos en la tabla de históricos.
+     */
     void cargarHistorico() {
         ObservableList<Historico> listaHistoricos = DaoHistorico.todosHistoricos();
         tablaHistorico.setItems(listaHistoricos);
     }
 
+    /**
+     * Carga todos los datos en las tablas: libros, alumnos, préstamos e históricos.
+     */
     void cargarTodasTablas() {
        cargarLibros();
        cargarAlumnos();
@@ -573,6 +762,11 @@ public class ControllerBiblioteca {
         alert.showAndWait();
     }
 
+    /**
+     * Metodo que se ejecuta al iniciar la ventana, inicializa las conexiones y configura las tablas y carga los combobox.
+     *
+     * @throws SQLException Si ocurre un error al intentar conectar con la base de datos.
+     */
     @FXML
     void initialize() {
         // Controlar acceso a la base de datos
@@ -744,5 +938,4 @@ public class ControllerBiblioteca {
         comboFiltroHistorico.getSelectionModel().selectFirst();
 
     }
-
 }

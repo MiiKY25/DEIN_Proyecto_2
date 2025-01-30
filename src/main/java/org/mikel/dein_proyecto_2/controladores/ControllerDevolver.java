@@ -163,5 +163,4 @@ public class ControllerDevolver {
         Prestamo p=comboPrestamo.getValue();
         comboEstado.setValue(p.getLibro().getEstado());
     }
-
 }

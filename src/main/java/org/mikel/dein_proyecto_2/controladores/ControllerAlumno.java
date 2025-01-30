@@ -178,5 +178,4 @@ public class ControllerAlumno {
         // Si se edita no se puede cambiar el DNI
         txtDNI.setDisable(true);
     }
-
 }

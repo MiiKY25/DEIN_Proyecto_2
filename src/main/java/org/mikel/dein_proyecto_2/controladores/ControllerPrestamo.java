@@ -229,5 +229,4 @@ public class ControllerPrestamo {
         comboLibros.getSelectionModel().selectFirst();
 
     }
-
 }

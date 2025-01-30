@@ -266,7 +266,4 @@ public class ControllerLibro {
         comboEstado.setValue("Nuevo");
         btnBorrarFoto.setDisable(true);
     }
-
-
-
 }
