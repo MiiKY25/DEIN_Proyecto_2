@@ -15,14 +15,31 @@ import org.mikel.dein_proyecto_2.modelos.Prestamo;
 
 import java.time.LocalDate;
 
+/**
+ * Controlador para gestionar la devolución de libros en la aplicación.
+ * Permite cambiar el estado del libro al devolverlo y registrar la devolución en el historial.
+ */
 public class ControllerDevolver {
 
+    /**
+     * ComboBox para seleccionar el estado del libro.
+     */
     @FXML
     private ComboBox<String> comboEstado;
 
+    /**
+     * ComboBox para seleccionar el préstamo que se desea devolver.
+     */
     @FXML
     private ComboBox<Prestamo> comboPrestamo;
 
+    /**
+     * Maneja la acción de devolver un libro.
+     * Verifica si los datos son válidos y, si es así, actualiza el estado del libro,
+     * registra la devolución en el historial y guarda los cambios en la base de datos.
+     *
+     * @param event El evento de acción que invoca este metodo.
+     */
     @FXML
     void accionDevolver(ActionEvent event) {
         String error=validadDatos();
@@ -42,6 +59,12 @@ public class ControllerDevolver {
         }
     }
 
+    /**
+     * Maneja la acción de cambiar el préstamo seleccionado en el ComboBox.
+     * Cuando se cambia el préstamo, se actualiza el estado del libro correspondiente.
+     *
+     * @param event El evento de acción que invoca este metodo.
+     */
     @FXML
     void accionCambiarPrestamo(ActionEvent event) {
         Prestamo p=comboPrestamo.getSelectionModel().getSelectedItem();
@@ -53,6 +76,11 @@ public class ControllerDevolver {
         }
     }
 
+    /**
+     * Maneja la acción de cancelar la operación y cerrar la ventana.
+     *
+     * @param event El evento de acción que invoca este metodo.
+     */
     @FXML
     void accionCancelar(ActionEvent event) {
         cerrarVentana();
@@ -78,6 +106,9 @@ public class ControllerDevolver {
         return error;
     }
 
+    /**
+     * Cierra la ventana actual del formulario de devolución.
+     */
     private void cerrarVentana() {
         Stage stage = (Stage) comboEstado.getScene().getWindow();
         stage.close();
@@ -109,6 +140,10 @@ public class ControllerDevolver {
         alert.showAndWait();
     }
 
+    /**
+     * Inicializa los ComboBox con los valores de préstamos existentes y estados de libro.
+     * También configura el estado del libro del préstamo seleccionado por defecto.
+     */
     @FXML
     public void initialize() {
         // Cargar los valores a los ComboBox

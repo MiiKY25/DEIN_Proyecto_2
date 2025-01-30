@@ -17,31 +17,65 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 
+/**
+ * Controlador para la gestión de libros. Permite crear y modificar libros,
+ * gestionar las imágenes asociadas a los libros y validar los datos ingresados.
+ */
 public class ControllerLibro {
 
+    /**
+     * ComboBox para seleccionar el estado del libro.
+     */
     @FXML
     private ComboBox<String> comboEstado;
 
+    /**
+     * Campo de texto para ingresar el autor del libro.
+     */
     @FXML
     private TextField txtAutor;
 
+    /**
+     * Campo de texto para ingresar la editorial del libro.
+     */
     @FXML
     private TextField txtEditorial;
 
+    /**
+     * Campo de texto para ingresar el título del libro.
+     */
     @FXML
     private TextField txtTitulo;
 
+    /**
+     * Vista de imagen para mostrar la foto del libro.
+     */
     @FXML
     private ImageView imgFoto;
 
+    /**
+     * Botón para borrar la imagen seleccionada del libro.
+     */
     @FXML
     private Button btnBorrarFoto;
 
+    /**
+     * Objeto Blob que almacena la imagen del libro en formato binario.
+     */
     private Blob imagen;
 
+    /**
+     * Objeto Libro que representa el libro que se está editando o creando.
+     */
     private Libro libro;
 
 
+    /**
+     * Acción que guarda el libro. Crea un nuevo libro si no existe o lo modifica si ya existe.
+     * Valida los datos antes de realizar la operación.
+     *
+     * @param event El evento que dispara la acción.
+     */
     @FXML
     void accionGuardar(ActionEvent event) {
         String error=validadDatos();
@@ -70,11 +104,22 @@ public class ControllerLibro {
         }
     }
 
+    /**
+     * Acción que cancela la operación y cierra la ventana.
+     *
+     * @param event El evento que dispara la acción.
+     */
     @FXML
     void accionCancelar(ActionEvent event) {
         cerrarVentana();
     }
 
+    /**
+     * Acción que permite seleccionar una imagen para el libro.
+     * La imagen se valida para asegurar que no supere los 64KB.
+     *
+     * @param event El evento que dispara la acción.
+     */
     @FXML
     void accionSeleccionarImagen(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -100,6 +145,11 @@ public class ControllerLibro {
         }
     }
 
+    /**
+     * Acción que borra la imagen seleccionada y restablece la imagen predeterminada.
+     *
+     * @param event El evento que dispara la acción.
+     */
     @FXML
     void accionBorrarImagen(ActionEvent event) {
         imgFoto.setImage(new Image(getClass().getResourceAsStream("/imagenes/iconoLibro.png")));
@@ -107,6 +157,9 @@ public class ControllerLibro {
         imagen = null;
     }
 
+    /**
+     * Cierra la ventana actual.
+     */
     private void cerrarVentana() {
         Stage stage = (Stage) txtAutor.getScene().getWindow();
         stage.close();
@@ -168,6 +221,11 @@ public class ControllerLibro {
         alert.showAndWait();
     }
 
+    /**
+     * Establece un libro para editar sus datos en el formulario.
+     *
+     * @param l El libro a editar.
+     */
     public void setLibro(Libro l) {
         this.libro=l;
 
@@ -192,6 +250,9 @@ public class ControllerLibro {
         }
     }
 
+    /**
+     * Inicializa el controlador y carga los valores iniciales del ComboBox.
+     */
     @FXML
     public void initialize() {
         // Cargar los valores en el ComboBox

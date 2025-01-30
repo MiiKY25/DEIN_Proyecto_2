@@ -10,22 +10,48 @@ import org.mikel.dein_proyecto_2.dao.DaoLibro;
 import org.mikel.dein_proyecto_2.modelos.Alumno;
 import org.mikel.dein_proyecto_2.modelos.Libro;
 
+/**
+ * El controlador para gestionar las operaciones de los alumnos en la interfaz de usuario.
+ * Permite crear y editar registros de alumnos en la base de datos.
+ */
 public class ControllerAlumno {
 
+    /**
+     * Campo de texto para el primer apellido del alumno.
+     */
     @FXML
     private TextField txtApellido1;
 
+    /**
+     * Campo de texto para el segundo apellido del alumno.
+     */
     @FXML
     private TextField txtApellido2;
 
+    /**
+     * Campo de texto para el DNI del alumno.
+     */
     @FXML
     private TextField txtDNI;
 
+    /**
+     * Campo de texto para el nombre del alumno.
+     */
     @FXML
     private TextField txtNombre;
 
+    /**
+     * Objeto {@link Alumno} que representa al alumno que se está creando o editando.
+     */
     private Alumno alumno;
 
+    /**
+     * Maneja la acción de guardar los datos de un alumno.
+     * Si el alumno ya existe, muestra un mensaje de error.
+     * Si el alumno es nuevo, lo crea en la base de datos, de lo contrario, edita el alumno existente.
+     *
+     * @param event El evento de acción que invoca este metodo.
+     */
     @FXML
     void accionGuardar(ActionEvent event) {
         String error=validadDatos();
@@ -59,11 +85,19 @@ public class ControllerAlumno {
         }
     }
 
+    /**
+     * Maneja la acción de cancelar la operación y cerrar la ventana.
+     *
+     * @param event El evento de acción que invoca este método.
+     */
     @FXML
     void accionCancelar(ActionEvent event) {
         cerrarVentana();
     }
 
+    /**
+     * Cierra la ventana actual del formulario.
+     */
     private void cerrarVentana() {
         Stage stage = (Stage) txtNombre.getScene().getWindow();
         stage.close();
@@ -126,6 +160,12 @@ public class ControllerAlumno {
         alert.showAndWait();
     }
 
+    /**
+     * Establece el alumno que se va a editar y carga sus datos en los campos del formulario.
+     * Si se está editando, el DNI no se podrá modificar.
+     *
+     * @param a El objeto {@link Alumno} que se va a editar.
+     */
     public void setAlumno(Alumno a) {
         this.alumno=a;
 

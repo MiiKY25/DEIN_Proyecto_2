@@ -25,17 +25,37 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Controlador para la gestión de préstamos de libros en la aplicación.
+ * Permite la creación de nuevos préstamos y la visualización de informes relacionados.
+ */
 public class ControllerPrestamo {
 
+    /**
+     * ComboBox que permite seleccionar un alumno para el préstamo.
+     */
     @FXML
     private ComboBox<Alumno> comboAlumnos;
 
+    /**
+     * ComboBox que permite seleccionar un libro para el préstamo.
+     */
     @FXML
     private ComboBox<Libro> comboLibros;
 
+    /**
+     * DatePicker que permite seleccionar la fecha del préstamo.
+     */
     @FXML
     private DatePicker fecha;
 
+    /**
+     * Acción de guardar un nuevo préstamo.
+     * Valida los datos ingresados y crea un nuevo préstamo si los datos son correctos.
+     * También muestra el informe del préstamo creado.
+     *
+     * @param event El evento de acción de guardar.
+     */
     @FXML
     void accionGuardar(ActionEvent event) {
         String error=validadDatos();
@@ -54,16 +74,31 @@ public class ControllerPrestamo {
         }
     }
 
+    /**
+     * Acción de cancelar la operación.
+     * Cierra la ventana actual sin realizar ninguna acción.
+     *
+     * @param event El evento de acción de cancelar.
+     */
     @FXML
     void accionCancelar(ActionEvent event) {
         cerrarVentana();
     }
 
+    /**
+     * Cierra la ventana actual.
+     */
     private void cerrarVentana() {
         Stage stage = (Stage) fecha.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Muestra el informe relacionado con el préstamo creado.
+     * Utiliza la ID del préstamo para generar el informe.
+     *
+     * @param id El ID del préstamo.
+     */
     void mostrarInforme(int id){
         Map<String, Object> parameters = new HashMap<>();
 
@@ -74,6 +109,12 @@ public class ControllerPrestamo {
         generarInforme("Informe1.jasper",parameters);
     }
 
+    /**
+     * Genera y muestra el informe Jasper basado en el archivo y parámetros proporcionados.
+     *
+     * @param archivoJasper El archivo Jasper que contiene el informe.
+     * @param parameters   Los parámetros a utilizar en el informe.
+     */
     private void generarInforme(String archivoJasper, Map<String, Object> parameters) {
         ConexionBBDD db;
         try {
@@ -175,6 +216,9 @@ public class ControllerPrestamo {
         alert.showAndWait();
     }
 
+    /**
+     * Inicializa el controlador, cargando los valores de los ComboBox con los datos de los alumnos y libros disponibles.
+     */
     @FXML
     public void initialize() {
         // Cargar los valores a los ComboBox
