@@ -92,10 +92,10 @@ public class ControllerBiblioteca {
     private TableColumn<Historico, Integer> colHistoricoID;
 
     /**
-     * Columna de la tabla que muestra el ID del libro en el histórico.
+     * Columna de la tabla que muestra el Titulo del libro en el histórico.
      */
     @FXML
-    private TableColumn<Historico, Integer> colHistoricoLibro;
+    private TableColumn<Historico, String> colHistoricoLibro;
 
     /**
      * Columna de la tabla que muestra el autor del libro.
@@ -152,10 +152,10 @@ public class ControllerBiblioteca {
     private TableColumn<Prestamo, Integer> colPrestamoID;
 
     /**
-     * Columna de la tabla que muestra el ID del libro en los préstamos.
+     * Columna de la tabla que muestra el Titulo del libro en los préstamos.
      */
     @FXML
-    private TableColumn<Prestamo, Integer> colPrestamoLibro;
+    private TableColumn<Prestamo, String> colPrestamoLibro;
 
     /**
      * Tabla de alumnos que se muestra en la interfaz.
@@ -470,7 +470,7 @@ public class ControllerBiblioteca {
                     historico.getAlumno().getDni().toLowerCase().contains(textoFiltro)));
         } else if (filtro.equals("Libro")) {
             tablaHistorico.setItems(todosHistoricos.filtered(historico ->
-                    String.valueOf(historico.getLibro().getCodigo()).contains(textoFiltro)));
+                    historico.getLibro().getTitulo().toLowerCase().contains(textoFiltro)));
         }
 
     }
@@ -836,7 +836,7 @@ public class ControllerBiblioteca {
         colHistoricoAlumno.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getAlumno().getDni()));
         colHistoricoLibro.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getLibro().getCodigo()));
+                new SimpleObjectProperty<>(cellData.getValue().getLibro().getTitulo()));
 
         // Configurar la columna de fecha de préstamo
         colHistoricoFecha.setCellValueFactory(cellData ->
@@ -886,7 +886,7 @@ public class ControllerBiblioteca {
         colPrestamoAlumno.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getAlumno().getDni()));
         colPrestamoLibro.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getLibro().getCodigo()));
+                new SimpleObjectProperty<>(cellData.getValue().getLibro().getTitulo()));
 
         // Configurar la columna de fecha de préstamo
         colPrestamoFecha.setCellValueFactory(new PropertyValueFactory<>("fecha_prestamo"));
