@@ -9,8 +9,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Clase DaoAlumno para gestionar el acceso a los datos de los alumnos.
+ */
 public class DaoAlumno {
 
+    /**
+     * Obtiene todos los alumnos de la base de datos.
+     * @return Lista de alumnos en un ObservableList.
+     */
     public static ObservableList<Alumno> todosAlumnos() {
         ConexionBBDD connection;
         ObservableList<Alumno> alumnos = FXCollections.observableArrayList();
@@ -35,6 +42,11 @@ public class DaoAlumno {
         return alumnos;
     }
 
+    /**
+     * Obtiene un alumno por su DNI.
+     * @param dni_alumno DNI del alumno a buscar.
+     * @return Alumno encontrado o null si no existe.
+     */
     public static Alumno AlumnoID(String dni_alumno) {
         ConexionBBDD connection;
         Alumno alumno = null;
@@ -59,6 +71,11 @@ public class DaoAlumno {
         return alumno;
     }
 
+    /**
+     * Crea un nuevo alumno en la base de datos.
+     * @param a Alumno a insertar.
+     * @return true si se insertó correctamente, false en caso contrario.
+     */
     public static boolean crearAlumno(Alumno a) {
         ConexionBBDD connection;
         int resul = 0;
@@ -80,6 +97,11 @@ public class DaoAlumno {
         return resul > 0;
     }
 
+    /**
+     * Modifica los datos de un alumno en la base de datos.
+     * @param a Alumno con los datos actualizados.
+     * @return true si se actualizó correctamente, false en caso contrario.
+     */
     public static boolean editarAlumno(Alumno a) {
         ConexionBBDD connection;
         int resul = 0;
@@ -101,6 +123,11 @@ public class DaoAlumno {
         return resul > 0;
     }
 
+    /**
+     * Verifica si un DNI ya existe en la base de datos.
+     * @param dni DNI a comprobar.
+     * @return true si existe, false si no.
+     */
     public static boolean existeDNI(String dni) {
         ConexionBBDD connection;
         boolean existe = false;
@@ -120,7 +147,4 @@ public class DaoAlumno {
         }
         return existe;
     }
-
-
-
 }

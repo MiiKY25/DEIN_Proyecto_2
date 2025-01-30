@@ -11,9 +11,16 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
 
+/**
+ * Clase DAO para gestionar las operaciones relacionadas con los libros en la base de datos.
+ */
 public class DaoLibro {
 
-
+    /**
+     * Obtiene una lista de todos los libros almacenados en la base de datos.
+     *
+     * @return Lista observable de libros.
+     */
     public static ObservableList<Libro> todosLibros() {
         ConexionBBDD connection;
         ObservableList<Libro> libros = FXCollections.observableArrayList();
@@ -41,6 +48,12 @@ public class DaoLibro {
         return libros;
     }
 
+    /**
+     * Busca un libro en la base de datos por su código.
+     *
+     * @param codigo_libro Código del libro a buscar.
+     * @return Objeto Libro si se encuentra, null en caso contrario.
+     */
     public static Libro LibroID(String codigo_libro) {
         ConexionBBDD connection;
         Libro libro = null;
@@ -68,6 +81,12 @@ public class DaoLibro {
         return libro;
     }
 
+    /**
+     * Inserta un nuevo libro en la base de datos.
+     *
+     * @param l Objeto Libro a insertar.
+     * @return true si la inserción fue exitosa, false en caso contrario.
+     */
     public static boolean crearLibro(Libro l) {
         ConexionBBDD connection;
         int resul = 0;
@@ -91,6 +110,12 @@ public class DaoLibro {
         return resul > 0;
     }
 
+    /**
+     * Edita la información de un libro en la base de datos.
+     *
+     * @param l Objeto Libro con los nuevos datos.
+     * @return true si la actualización fue exitosa, false en caso contrario.
+     */
     public static boolean editarLibro(Libro l) {
         ConexionBBDD connection;
         int resul = 0;
@@ -115,6 +140,12 @@ public class DaoLibro {
         return resul > 0;
     }
 
+    /**
+     * Marca un libro como dado de baja en la base de datos.
+     *
+     * @param codigo Código del libro a dar de baja.
+     * @return true si la actualización fue exitosa, false en caso contrario.
+     */
     public static boolean darDeBajaLibro(int codigo) {
         ConexionBBDD connection;
         int resul = 0;
@@ -134,6 +165,11 @@ public class DaoLibro {
         return resul > 0;
     }
 
+    /**
+     * Obtiene una lista de todos los libros que están activos (no dados de baja).
+     *
+     * @return Lista observable de libros activos.
+     */
     public static ObservableList<Libro> todosLibrosActivos() {
         ConexionBBDD connection;
         ObservableList<Libro> libros = FXCollections.observableArrayList();
@@ -161,6 +197,12 @@ public class DaoLibro {
         return libros;
     }
 
+    /**
+     * Obtiene una lista de libros disponibles para ser prestados.
+     * Un libro es considerado disponible si no está dado de baja y no está en préstamo.
+     *
+     * @return Lista observable de libros disponibles para préstamo.
+     */
     public static ObservableList<Libro> todosLibrosParaPrestar() {
         ConexionBBDD connection;
         ObservableList<Libro> libros = FXCollections.observableArrayList();

@@ -15,8 +15,16 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * Clase DaoHistorico para gestionar el acceso a los datos del histórico de préstamos.
+ */
 public class DaoHistorico {
 
+    /**
+     * Obtiene todos los registros del histórico de préstamos.
+     *
+     * @return Una lista observable con todos los registros del histórico.
+     */
     public static ObservableList<Historico> todosHistoricos() {
         ConexionBBDD connection;
         ObservableList<Historico> historicos = FXCollections.observableArrayList();
@@ -46,6 +54,12 @@ public class DaoHistorico {
         return historicos;
     }
 
+    /**
+     * Registra un préstamo en el histórico y lo elimina de la lista de préstamos activos.
+     *
+     * @param p El préstamo que se desea registrar en el histórico.
+     * @return true si la operación fue exitosa, false en caso contrario.
+     */
     public static boolean crearHistorico(Prestamo p) {
         ConexionBBDD connection;
         int resul = 0;

@@ -14,6 +14,10 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * La clase DaoPrestamo proporciona métodos para gestionar los préstamos de libros en la base de datos.
+ * Incluye métodos para obtener todos los préstamos, crear un nuevo préstamo y eliminar un préstamo existente.
+ */
 public class DaoPrestamo {
 
     public static ObservableList<Prestamo> todosPrestamos() {
@@ -44,6 +48,11 @@ public class DaoPrestamo {
         return prestamos;
     }
 
+    /**
+     * Obtiene todos los préstamos registrados en la base de datos.
+     *
+     * @return Una lista observable de objetos {@link Prestamo} que contienen los detalles de los préstamos.
+     */
     public static int crearPrestamo(Prestamo p) {
         ConexionBBDD connection;
         int generatedId = -1; // Valor por defecto en caso de error o si no se genera un ID
@@ -76,7 +85,12 @@ public class DaoPrestamo {
         return generatedId;  // Devuelve el ID generado o -1 si no se generó ningún ID
     }
 
-
+    /**
+     * Elimina un préstamo de la base de datos.
+     *
+     * @param p El objeto {@link Prestamo} que se desea eliminar, identificado por su ID.
+     * @return {@code true} si la eliminación fue exitosa, {@code false} si ocurrió un error.
+     */
     public static boolean eliminarPrestamo(Prestamo p) {
         ConexionBBDD connection;
         int resul = 0;
