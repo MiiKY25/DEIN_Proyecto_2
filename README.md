@@ -1,4 +1,4 @@
-Esta aplicación JavaFX está diseñada para gestionar de manera eficiente los préstamos de libros y los datos de los alumnos en una biblioteca. 
+Esta aplicación JavaFX está diseñada para gestionar de manera eficiente los préstamos de libros y los datos de los alumnos en una Biblioteca. 
 Permite registrar, modificar y eliminar alumnos y libros, mostrar los históricos de préstamos y devoluciones, y ofrecer una interfaz amigable para realizar estas operaciones. 
 Los datos se almacenan en una base de datos MySQL y se presentan en tablas interactivas con soporte para imágenes de portada de los libros. 
 Además, la aplicación está internacionalizada, permitiendo el cambio de idioma entre español e inglés. 
