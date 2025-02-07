@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.mikel.dein_proyecto_2.bbdd.ConexionBBDD;
 import org.mikel.dein_proyecto_2.modelos.Alumno;
-
+import java.util.logging.Logger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +13,12 @@ import java.sql.SQLException;
  * Clase DaoAlumno para gestionar el acceso a los datos de los alumnos.
  */
 public class DaoAlumno {
+
+
+    /**
+     * LOGGER para registrar eventos y errores.
+     */
+    private static final Logger LOGGER = Logger.getLogger(DaoAlumno.class.getName());
 
     /**
      * Obtiene todos los alumnos de la base de datos.
@@ -36,7 +42,11 @@ public class DaoAlumno {
             }
             rs.close();
             connection.CloseConexion();
+
+            // Log de éxito
+            LOGGER.info("Lista de alumnos cargada correctamente.");
         } catch (SQLException e) {
+            LOGGER.severe("Error al obtener la lista de alumnos: " + e.getMessage());
             System.err.println(e.getMessage());
         }
         return alumnos;
@@ -65,7 +75,10 @@ public class DaoAlumno {
             }
             rs.close();
             connection.CloseConexion();
+            // Log de éxito
+            LOGGER.info("Alumno encontrado con DNI: " + dni_alumno);
         } catch (SQLException e) {
+            LOGGER.severe("Error al obtener el alumno con DNI " + dni_alumno + ": " + e.getMessage());
             System.err.println(e.getMessage());
         }
         return alumno;
@@ -91,7 +104,9 @@ public class DaoAlumno {
             resul = pstmt.executeUpdate();
             pstmt.close();
             connection.CloseConexion();
+            LOGGER.info("Alumno insertado correctamente: " + a.getDni());
         } catch (SQLException e) {
+            LOGGER.severe("Error al insertar el alumno " + a.getDni() + ": " + e.getMessage());
             e.printStackTrace();
         }
         return resul > 0;
@@ -117,7 +132,9 @@ public class DaoAlumno {
             resul = pstmt.executeUpdate();
             pstmt.close();
             connection.CloseConexion();
+            LOGGER.info("Alumno actualizado correctamente: " + a.getDni());
         } catch (SQLException e) {
+            LOGGER.severe("Error al actualizar el alumno " + a.getDni() + ": " + e.getMessage());
             e.printStackTrace();
         }
         return resul > 0;
@@ -142,7 +159,9 @@ public class DaoAlumno {
             }
             rs.close();
             connection.CloseConexion();
+            LOGGER.info("Alumno con DNI " + dni + " existe:");
         } catch (SQLException e) {
+            LOGGER.severe("Error al verificar existencia del alumno: " + e.getMessage());
             e.printStackTrace();
         }
         return existe;
